@@ -1,0 +1,48 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21/06/2016, 22:15:03
+    Author     : Eder Rodrigues
+*/
+
+
+#img{
+    position: relative;
+    top: -8px;
+    right: 100px;
+    height: 50px;
+    width: 120px;
+}
+nav{
+    height: 60px;
+}
+.dropdown{
+    margin-top: 5px;
+}
+
+.panel{
+
+
+    width: 100%;
+    
+}
+
+.fieldsFuncionarios{
+    padding: 5px;
+}
+.form-control{
+    width: 100%;
+}
+
+#msgError{
+    background: #ff3333;
+    color: black;
+}
+#msgSuccess{
+    background: #85e085;
+    color: black;
+    border-radius: 5px;
+}
