@@ -64,7 +64,7 @@ public class Funcionario implements Serializable {
     private String gestor;
 
     @OneToMany(mappedBy = "funcionarios", fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-    private Set<Certificacao> certificacoes = new HashSet<>();
+    private List<Certificacao> certificacoes;
 
     @OneToMany(mappedBy = "idioma", fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     List<Idioma> idiomas;
@@ -156,11 +156,11 @@ public class Funcionario implements Serializable {
         this.gestor = gestor;
     }
 
-    public Set<Certificacao> getCertificacoes() {
+    public List<Certificacao> getCertificacoes() {
         return certificacoes;
     }
 
-    public void setCertificacoes(Set<Certificacao> certificacoes) {
+    public void setCertificacoes(List<Certificacao> certificacoes) {
         this.certificacoes = certificacoes;
     }
 

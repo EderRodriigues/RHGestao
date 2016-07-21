@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+ 
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+<!--    <appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
+        <param name="Threshold" value="DEBUG" />
+        <param name="File" value="${catalina.base}/logs/webrapid.log" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d  %-5p  [%c{1}] %m %n" />
+        </layout>
+    </appender>-->
+    <appender name="springAppender" class="org.apache.log4j.RollingFileAppender"> 
+        <param name="file" value="${catalina.base}/logs/projectmngmnt.log" /> 
+        <param name="append" value="true" /> 
+        <param name="Threshold" value="info" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{MM/dd/yyyy HH:mm:ss}  [%t]:%c{5}.%M()%L %m%n" />
+        </layout>
+    </appender>
+
+    <category name="org.springframework">
+        <priority value="info" />
+    </category>
+
+    <category name="org.springframework.beans">
+        <priority value="info" />
+    </category>
+
+    <category name="org.springframework.security">
+        <priority value="info" />
+    </category>
+
+    <category
+        name="org.springframework.beans.CachedIntrospectionResults">
+        <priority value="info" />
+    </category>
+
+    <category name="org.springframework.jdbc.core">
+        <priority value="info" />
+    </category>
+
+    <category
+        name="org.springframework.transaction.support.TransactionSynchronizationManager">
+        <priority value="info" />
+    </category>
+    <root>
+        <priority value="info" />
+        <!--<appender-ref ref="fileAppender" />-->
+        <appender-ref ref="springAppender" />
+    </root>
+</log4j:configuration>

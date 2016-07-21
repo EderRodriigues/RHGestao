@@ -66,7 +66,7 @@ public class Certificacao implements Serializable {
     @Column
     private String copia;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     private Funcionario funcionarios;
 
     public Certificacao() {

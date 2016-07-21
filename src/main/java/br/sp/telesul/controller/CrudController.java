@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CrudController {
 
     FuncionarioService funcionarioService;
-
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(CrudController.class);
     @Autowired
     @Qualifier(value = "funcionarioService")
     public void setFuncionarioService(FuncionarioService funcionarioService) {
@@ -44,17 +45,23 @@ public class CrudController {
     @RequestMapping(value = "save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<Funcionario> save(@RequestBody Funcionario funcionario) throws ParseException {
-
-        if(funcionario.getIdFuncionario()> 0){
-          this.funcionarioService.change(funcionario);
-        }else { 
-             this.funcionarioService.salve(funcionario);  
+        try {
+            if (funcionario.getIdFuncionario() > 0) {
+                this.funcionarioService.change(funcionario);
+            } else {
+                this.funcionarioService.salve(funcionario);
+            }
+        } catch (Exception e) {
+//            logger.error("Search request for entity {} by user {} failed!", entityName, principal.getName());
+            logger.error("With Error::", e);
         }
 
         return new ResponseEntity<>(funcionario, HttpStatus.OK);
     }
+
     @RequestMapping(value = "remove", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody void remove(@RequestBody Funcionario funcionario){
+    public @ResponseBody
+    void remove(@RequestBody Funcionario funcionario) {
         this.funcionarioService.delete(funcionario);
     }
 
@@ -66,6 +73,7 @@ public class CrudController {
 
         return employees;
     }
+
     @RequestMapping(value = "search/{pageNumber}/{pageSize}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     FilterReturn searchForPagination(@PathVariable int pageNumber, @PathVariable int pageSize, @RequestParam String filter) {
@@ -74,11 +82,10 @@ public class CrudController {
 
         return employees;
     }
-    
+
 //    @RequestMapping(value = "searchByNome/{nome}")
 //    public @ResponseBody List<Funcionario> searchByNome(@PathVariable String nome){
 //        List<Funcionario> lista = this.funcionarioService.buscarFuncionariosPorNome(nome);
 //        return  lista;
 //    }
-
 }

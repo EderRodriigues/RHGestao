@@ -32,6 +32,8 @@ public class Formacao implements Serializable {
     private String curso;
     @Column(name = "instituicao")
     private String instituicao;
+    @Column(name="nivel")
+    private String nivel;
     @Column(name = "copiaCertificado")
     private String copiaCertificado;
 
@@ -81,5 +83,14 @@ public class Formacao implements Serializable {
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
     }
+
+    public String getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(String nivel) {
+        this.nivel = nivel;
+    }
+    
 
 }

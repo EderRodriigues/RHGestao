@@ -7,7 +7,14 @@
 var app = angular.module("rhApp");
 app.controller("CadastrarFuncionario", function ($scope, crudService, crudCertificacoesService, $uibModal, broadCastService) {
     $scope.funcionario = {};
-    $scope.funcionario.formacoes = {};
+    $scope.funcionario.formacoes = [];
+    $scope.funcionario.idiomas = [];
+    $scope.funcionario.certificacoes = [];
+    $scope.newFormacoes;
+    $scope.newCertificacoes;
+    $scope.novoIdioma;
+
+   
     $scope.languages = ["Português", "Inglês", "Espanhol", "Frânces", "Alemão", "Italiano", "Grego", "Russo", "Indi", "Japônes", "Chinês", "Mandarim", "Hebraíco"];
     $scope.options = ["Dados Cadastrais", "Formação Acadêmica", "Idioma", "Certificação"];
     $scope.optionsBoolean = [false, false, false, false];
@@ -27,12 +34,16 @@ app.controller("CadastrarFuncionario", function ($scope, crudService, crudCertif
     $scope.certifications;
 
     $scope.selectCopiaFormacao = function (copia) {
-        $scope.funcionario.formacoes.copiaCertificado = copia;
-        console.log($scope.funcionario.formacao.copiaCertificado);
+//        $scope.funcionario.formacoes.copiaCertificado = copia;
+        $scope.newFormacoes.copiaCertificado = copia;
+        console.log($scope.newFormacoes.copiaCertificado);
+        console.log($scope.newFormacoes);
+
     };
     $scope.selectCopiaCertificacao = function (copia) {
-        $scope.funcionario.certificacao.copia = copia;
-        console.log($scope.funcionario.certificacao.copia);
+        $scope.newCertificacoes.copia = copia;
+        console.log($scope.newCertificacoes);
+
     };
 
     function validation(employee) {
@@ -55,6 +66,7 @@ app.controller("CadastrarFuncionario", function ($scope, crudService, crudCertif
 //        }
         return boolean;
     }
+    
     $scope.save = function () {
         console.log($scope.funcionario);
         if ($scope.funcionario.idFuncionario === null || $scope.funcionario.idFuncionario === undefined) {
@@ -76,6 +88,44 @@ app.controller("CadastrarFuncionario", function ($scope, crudService, crudCertif
     };
     $scope.reset = function () {
         $scope.funcionario = {};
+    };
+
+    $scope.saveRow = function () {
+        $scope.funcionario.checked = !$scope.funcionario.checked;
+//        $scope.funcionario.formacoes[index] = editCertificacao;
+//        $scope.newFormacoes = [];
+        console.log($scope.funcionario);
+    };
+    $scope.addRow = function (novaInformacao, template) {
+        if (template === 'formacao') {
+            $scope.funcionario.formacoes.push(novaInformacao);
+            $scope.newFormacoes = null;
+            console.log($scope.funcionario);
+        } else if (template === 'certificacao') {
+            $scope.funcionario.certificacoes.push(novaInformacao);
+            $scope.newCertificacoes = null;
+            console.log($scope.funcionario);
+        } else if (template === 'idioma') {
+            $scope.funcionario.idiomas.push(novaInformacao);
+            $scope.novoIdioma = null;
+            console.log($scope.funcionario);
+        }
+
+    };
+    $scope.editRow = function (formacao) {
+        $scope.funcionario.checked = !$scope.funcionario.checked;
+    };
+    $scope.removeRow = function (index, template) {
+        if(template === "formacao"){
+            $scope.funcionario.formacoes.splice(index, 1);
+        }
+        else if(template === "certificacao"){
+            $scope.funcionario.certificacoes.splice(index, 1);
+        }
+        else if(template === "idioma"){
+            $scope.funcionario.idiomas.splice(index, 1);
+        }
+        
     };
 
 
@@ -103,21 +153,6 @@ app.controller("CadastrarFuncionario", function ($scope, crudService, crudCertif
 //            console.log($scope.funcionario.certificacoes);
 //        });
 //    };
-
-
-//    function searchCertifications() {
-//        var ajaxget = crudCertificacoesService.searchCertificacoes();
-//        ajaxget.success(function (data) {
-////            console.log(data);
-//            $scope.certificacoes = data;
-//            console.log($scope.certificacoes);
-//        }).error(function (error, status) {
-//            console.log("ajax error:" + error);
-//            console.log("ajax status:" + status);
-//        }).finally(function () {
-//        }).catch(function (error) {
-//        });
-//    }
 
 
 });
