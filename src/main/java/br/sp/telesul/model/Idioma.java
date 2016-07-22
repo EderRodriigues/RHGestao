@@ -6,12 +6,15 @@
 package br.sp.telesul.model;
 
 import java.io.Serializable;
+import javax.annotation.Generated;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -24,6 +27,7 @@ import javax.persistence.Table;
 @Table(name="Idioma")
 public class Idioma implements Serializable{
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="idIdioma")
     private int idIdioma;
     @Column(name="nome")
@@ -32,9 +36,7 @@ public class Idioma implements Serializable{
     @Column(name="nivel")
     @Enumerated(EnumType.STRING)
     private Nivel nivel;
-    
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-    private Idioma idioma;
+
     
 
     public Idioma() {
@@ -67,16 +69,7 @@ public class Idioma implements Serializable{
 
     public void setNivel(Nivel nivel) {
         this.nivel = nivel;
-    }
-
-    public Idioma getIdioma() {
-        return idioma;
-    }
-
-    public void setIdioma(Idioma idioma) {
-        this.idioma = idioma;
-    }
-    
+    }    
     
     @Override
     public String toString(){

@@ -45,16 +45,12 @@ public class CrudController {
     @RequestMapping(value = "save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<Funcionario> save(@RequestBody Funcionario funcionario) throws ParseException {
-        try {
             if (funcionario.getIdFuncionario() > 0) {
                 this.funcionarioService.change(funcionario);
             } else {
                 this.funcionarioService.salve(funcionario);
             }
-        } catch (Exception e) {
-//            logger.error("Search request for entity {} by user {} failed!", entityName, principal.getName());
-            logger.error("With Error::", e);
-        }
+        
 
         return new ResponseEntity<>(funcionario, HttpStatus.OK);
     }

@@ -107,7 +107,7 @@
                                 <li ng-repeat="op in options"><a href="#" ng-click="ativarForm($index)">{{op}}</a></li>
                             </ul>
                             <div ng-show="optionsBoolean[0]">
-                                <table class="table table-hover">
+                                <table class="table table-condensed">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -126,7 +126,7 @@
                                             <th><input class="form-control" ng-model="selecionado.cargo"/></th>
                                             <th><input class="form-control" ng-model="selecionado.area"/></th>
                                             <th id="dtNasc">  
-                                                <div class='input-group date' id='datetimepicker3'>
+                                                <div class='input-group date dtpicker'>
                                                     <input type="text" class="form-control" ng-model="selecionado.dtAdmissao"/>
                                                     <span class="input-group-addon">
                                                         <span class="glyphicon glyphicon-calendar"></span>
@@ -140,53 +140,69 @@
                                 </table>
                             </div>
                             <div ng-show="optionsBoolean[1]">
-                                <table>
+                                <table class="table table-hover">
                                     <thead>
-                                        <th>Nome/Curso</th>
-                                        <th>Instituicao</th>
-                                        <th>Copia Certificado</th>                                        
+                                    <th>Nome</th>
+                                    <th>Instituicao</th>
+                                    <th>Copia de Certificação</th>                                        
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="cert in selecionado.formacoes">
-                                            <th>{{cert.nome}}</th>
-                                            <th>{{cert.instituicao}}</th>
-                                            <th>{{cert.copiaCertificado}}</th>
+                                        <tr ng-repeat="formacao in selecionado.formacoes">
+                                            <th><input class="form-control" ng-model="formacao.curso"></th>
+                                            <th><input class="form-control" ng-model="formacao.instituicao"></th>
+                                            <th><input class="form-control" ng-model="formacao.copiaCertificado"></th>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div ng-show="optionsBoolean[2]">
-                                <table>
+                                <table class="table table-condensed">
                                     <thead>
-                                        <th>Idioma</th>
-                                        <th>Nível</th>                                        
+                                    <th>Idioma</th>
+                                    <th>Nível</th>                                        
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="cert in selecionado.idiomas">
-                                            <th>{{cert.nome}}</th>
-                                            <th>{{cert.nivel}}</th>
+                                        <tr ng-repeat="idioma in selecionado.idiomas">
+                                            <th><input class="form-control" ng-model="idioma.nome"></th>
+                                            <th><input class="form-control" ng-model="idioma.nivel"></th>
+
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div ng-show="optionsBoolean[3]">
-                                <table>
+                                <table class="table table-condensed">
                                     <thead>
-                                        <th>Codigo</th>
-                                        <th>Nome/Curso</th>
-                                        <th>Empresa</th>
-                                        <th>Data de Exame/dtExame</th>
-                                        <th>Data de Validade/dtValidade</th>
-                                        <th>Copia</th>
+                                    <th>Codigo</th>
+                                    <th>Curso</th>
+                                    <th>Empresa</th>
+                                    <th>Data de Exame</th>
+                                    <th>Data de Validade</th>
+                                    <th>Copia de Certificação</th>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="cert in selecionado.certifcacoes">
-                                            <th>{{cert.codigo}}</th>
-                                            <th>{{cert.nome}}</th>
-                                            <th>{{cert.empresa}}</th>
-                                            <th>{{cert.dtExame}}</th>
-                                            <th>{{cert.dtValidade}}</th>
-                                            <th>{{cert.copia}}</th>
+                                        <tr ng-repeat="cert in selecionado.certificacoes">
+                                            <th><input class="form-control sizeInput" ng-model="cert.codigo"></th>
+                                            <th><input class="form-control sizeInput" ng-model="cert.nome"></th>
+                                            <th><input class="form-control sizeInput" ng-model="cert.empresa"></th>
+                                            <th>
+                                             
+                                                <div class='input-group date' data-provide="datepicker">
+                                                    <input type="text" class="form-control dtExame" ng-model="cert.dtExame"/>
+                                                    <div class="input-group-addon">
+                                                        <div class="glyphicon glyphicon-calendar"></div>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class='input-group date' data-provide="datepicker">
+                                                    <input type="text" class="form-control" ng-model="cert.dtValidade"/>
+                                                    <div class="input-group-addon">
+                                                        <div class="glyphicon glyphicon-calendar"></div>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th><input class="form-control sizeInput" ng-model="cert.copia"></th>
                                         </tr>
                                     </tbody>
                                 </table>

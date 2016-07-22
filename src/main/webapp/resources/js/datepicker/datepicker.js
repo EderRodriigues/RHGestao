@@ -6,17 +6,20 @@
 
 
 $(function () {
-    $('#datetimepicker2').datepicker({
+//    $.extend($.fn.datepicker.defaults, {format: 'dd-mm-yyyy', language: 'pt-BR'} );
+   
+    $.fn.datepicker.defaults.language = "pt-BR";
+    $('#dtAdmissao').datepicker({
         format: 'dd-mm-yyyy',
         language: 'pt-BR'
     });
-    $('#datetimepicker3').datepicker({
+    $('.dtpicker').datepicker({
         format: 'dd-mm-yyyy',
         language: 'pt-BR'
     });
-    $('#datetimepicker4').datepicker({
+    $('#dtpicker2').datepicker({
         format: 'dd-mm-yyyy',
         language: 'pt-BR'
     });
 });
- $("li").addClass("active");
+$("li").addClass("active");

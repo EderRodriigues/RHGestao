@@ -27,7 +27,7 @@ nav{
 
 
     width: 100%;
-    
+
 }
 .form-control{
     width: 100%;
@@ -41,4 +41,11 @@ nav{
     background: #85e085;
     color: black;
     border-radius: 5px;
+}
+#radio2{
+    position: relative;
+    right: 10px;
+}
+.sizeInput{
+    width: 150px;
 }

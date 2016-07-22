@@ -40,13 +40,6 @@
                 background-repeat: no-repeat; 
                 background-size: 1641px;
             }
-            .sizeInput{
-                width: 150px;
-            }
-            #radio2{
-                position: relative;
-                right: 10px;
-            }
         </style>
     </head>
     <body ng-controller="CadastrarFuncionario">
@@ -100,7 +93,7 @@
                         </div>
                         <div class="form-group">
                             <label class="fieldsFuncionarios">Data de Admissão</label>                            
-                            <div class='input-group date' id='datetimepicker2'>
+                            <div class='input-group date dtpicker' data-provide="datepicker">
                                 <input type="text" class="form-control" ng-model="funcionario.dtAdmissao"/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
@@ -259,11 +252,11 @@
                                         </td>
                                         <td>                                            
                                             <input type="text" class="form-control" readonly="true" ng-model="certificacao.dtExame" ng-hide="funcionario.checked">
-                                            <input type="text" class="form-control"  ng-model="certificacao.dtExame" ng-show="funcionario.checked">
+                                            <input data-provide="datepicker" class="form-control"  ng-model="certificacao.dtExame" ng-show="funcionario.checked">
                                         </td>
                                         <td>              
                                             <input type="text" class="form-control" readonly="true" ng-model="certificacao.dtValidade" ng-hide="funcionario.checked">
-                                            <input type="text" class="form-control"  ng-model="certificacao.dtValidade" ng-show="funcionario.checked">
+                                            <input data-provide="datepicker" class="form-control"  ng-model="certificacao.dtValidade" ng-show="funcionario.checked">
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" readonly="true" ng-model="certificacao.copia" ng-hide="funcionario.checked">
@@ -289,15 +282,15 @@
                                              <input type="text" class="form-control sizeInput" ng-model="newCertificacoes.codigo">
                                         </td>
                                         <td>
-                                            <div class='input-group date' id='datetimepicker3'>
-                                                <input type="text" id="date" class="form-control" ng-model="newCertificacoes.dtExame"/>
+                                            <div class='input-group date dtpicker' data-provide="datepicker">
+                                                <input type="text" class="form-control" ng-model="newCertificacoes.dtExame"/>
                                                 <div class="input-group-addon">
                                                     <div class="glyphicon glyphicon-calendar"></div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <div class='input-group date' id='datetimepicker4'>
+                                            <div class='input-group date dtpicker' data-provide="datepicker">
                                                 <input type="text" class="form-control" ng-model="newCertificacoes.dtValidade"/>
                                                 <div class="input-group-addon">
                                                     <div class="glyphicon glyphicon-calendar"></div>

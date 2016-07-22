@@ -65,22 +65,25 @@ app.controller("atualizarFuncionario", function ($scope, crudService, crudCertif
     function validation(employee) {
         console.log(employee);
         var boolean = true;
-        if (employee.id === null || employee.id === undefined || employee.id === "") {
+        if (employee.idFuncionario === null || employee.idFuncionario === undefined || employee.idFuncionario === "") {
             boolean = false;
         }
         if (employee.nome === null || employee.nome === undefined || employee.nome === "") {
             boolean = false;
         }
+        if (employee.dtAdmissao === null || employee.dtAdmissao === undefined || employee.dtAdmissao === "") {
+            boolean = false;
+        }
+        if (employee.gestor === null || employee.gestor === undefined || employee.gestor === "") {
+            boolean = false;
+        }
+        if (employee.cargo === null || employee.cargo === undefined || employee.cargo === "") {
+            boolean = false;
+        }
+        if (employee.area === null || employee.area === undefined || employee.area === "") {
+            boolean = false;
+        }
 
-//        if (employee.certificacoes === null || employee.certificacoes === undefined) {
-//            boolean = false;
-//        }
-        if (employee.dtNascimento === null || employee.dtNascimento === undefined || employee.dtNascimento === "") {
-            boolean = false;
-        }
-        if (employee.setor === null || employee.setor === undefined || employee.setor === "") {
-            boolean = false;
-        }
         return boolean;
     }
     function successOnSearch(data) {

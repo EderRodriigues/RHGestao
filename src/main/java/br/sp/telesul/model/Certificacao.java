@@ -7,44 +7,31 @@ package br.sp.telesul.model;
 
 import br.sp.telesul.jackson.CustomDateDeserializer;
 import br.sp.telesul.jackson.CustomDateSerializer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.hibernate.annotations.NamedQueries;
-import org.hibernate.annotations.NamedQuery;
 
 /**
  *
  * @author Eder Rodrigues
  */
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "CERTIFICACAO")
 public class Certificacao implements Serializable {
 
     @Id
     @Column(name = "idCertificacao")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idCertificacao;
     @Column
     private int codigo;
@@ -65,9 +52,6 @@ public class Certificacao implements Serializable {
 
     @Column
     private String copia;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-    private Funcionario funcionarios;
 
     public Certificacao() {
 
@@ -129,14 +113,6 @@ public class Certificacao implements Serializable {
         this.dtValidade = dtValidade;
     }
 
-    public Funcionario getFuncionarios() {
-        return funcionarios;
-    }
-
-    public void setFuncionarios(Funcionario funcionarios) {
-        this.funcionarios = funcionarios;
-    }
-
     public String getEmpresa() {
         return empresa;
     }
@@ -150,29 +126,6 @@ public class Certificacao implements Serializable {
         return "idCertificacao=" + idCertificacao + ", nome=" + nome + ", empresa=" + empresa;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 83 * hash + Objects.hashCode(this.nome);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Certificacao other = (Certificacao) obj;
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
-        return true;
-    }
+   
 
 }

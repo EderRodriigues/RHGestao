@@ -12,9 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.CascadeType;
 
 import javax.persistence.Column;
@@ -23,7 +21,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import javax.persistence.Table;
@@ -35,13 +32,12 @@ import javax.persistence.TemporalType;
  * @author Eder Rodrigues
  */
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "FUNCIONARIO")
 public class Funcionario implements Serializable {
 
     @Id
     @Column(name = "idFuncionario")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idFuncionario;
     @Column(name = "nome")
     private String nome;
@@ -49,13 +45,13 @@ public class Funcionario implements Serializable {
     @Column(name = "cargo")
     private String cargo;
 
-    @Column(name = "dtAdmissão")
+    @Column(name = "dtAdmissao")
     @Temporal(TemporalType.DATE)
     @JsonSerialize(using = CustomDateSerializer.class)
     @JsonDeserialize(using = CustomDateDeserializer.class)
     private Date dtAdmissao;
 
-    @OneToMany(mappedBy = "funcionario", fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Formacao> formacoes;
 
     @Column(name = "area")
@@ -63,23 +59,23 @@ public class Funcionario implements Serializable {
 
     private String gestor;
 
-    @OneToMany(mappedBy = "funcionarios", fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Certificacao> certificacoes;
 
-    @OneToMany(mappedBy = "idioma", fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-    List<Idioma> idiomas;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Idioma> idiomas;
     // Idioma class idioma e nivel
 
     public Funcionario() {
 
     }
 
-    public Funcionario(int idFuncionario, String nome, String cargo, Date dtAdmissao, List<Formacao> formacao, String area, String gestor) {
+    public Funcionario(int idFuncionario, String nome, String cargo, Date dtAdmissao, List<Formacao> formacoes, String area, String gestor) {
         this.idFuncionario = idFuncionario;
         this.nome = nome;
         this.cargo = cargo;
         this.dtAdmissao = dtAdmissao;
-        this.formacoes = formacao;
+        this.formacoes = formacoes;
         this.area = area;
         this.gestor = gestor;
     }
@@ -132,14 +128,6 @@ public class Funcionario implements Serializable {
         this.dtAdmissao = dtAdmissão;
     }
 
-    public List<Formacao> getFormacao() {
-        return formacoes;
-    }
-
-    public void setFormacao(List<Formacao> formacao) {
-        this.formacoes = formacao;
-    }
-
     public String getArea() {
         return area;
     }
@@ -174,7 +162,7 @@ public class Funcionario implements Serializable {
 
     @Override
     public String toString() {
-        return "Funcionario{" + "idFuncionario=" + idFuncionario + ", nome=" + nome + ", cargo=" + cargo + ", dtAdmiss\u00e3o=" + dtAdmissao + ", formacao=" + formacoes + ", area=" + area + ", gestor=" + gestor + ", certificacoes=" + certificacoes + ", idiomas=" + idiomas + '}';
+        return "Funcionario{" + "idFuncionario=" + idFuncionario + ", nome=" + nome + ", cargo=" + cargo + ", dtAdmiss\u00e3o=" + dtAdmissao + ", formacoes=" + formacoes + ", area=" + area + ", gestor=" + gestor + ", certificacoes=" + certificacoes + ", idiomas=" + idiomas + '}';
     }
 
 }

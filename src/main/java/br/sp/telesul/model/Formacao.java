@@ -32,13 +32,10 @@ public class Formacao implements Serializable {
     private String curso;
     @Column(name = "instituicao")
     private String instituicao;
-    @Column(name="nivel")
+    @Column(name = "nivel")
     private String nivel;
     @Column(name = "copiaCertificado")
     private String copiaCertificado;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-    private Funcionario funcionario;
 
     public Formacao() {
 
@@ -76,14 +73,6 @@ public class Formacao implements Serializable {
         this.copiaCertificado = CopiaCertificado;
     }
 
-    public Funcionario getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
-    }
-
     public String getNivel() {
         return nivel;
     }
@@ -91,6 +80,5 @@ public class Formacao implements Serializable {
     public void setNivel(String nivel) {
         this.nivel = nivel;
     }
-    
 
 }

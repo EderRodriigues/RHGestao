@@ -12,6 +12,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.collection.internal.PersistentList;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -27,6 +28,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
     private SessionFactory sessionFactory;
     private static final Logger logger = LoggerFactory.getLogger(FuncionarioDAOImpl.class);
+    private Transaction tx;
 
     public SessionFactory getSessionFactory() {
         return sessionFactory;
@@ -38,8 +40,22 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
     @Override
     public void save(Funcionario funcionario) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.persist(funcionario);
+        Session session = this.sessionFactory.openSession();
+
+        try {
+            tx = session.beginTransaction();
+            session.persist(funcionario);
+            tx.commit();
+        } catch (Exception e) {
+            if(tx != null){
+                tx.rollback();
+            }
+            logger.info(e.toString());
+            System.out.println("erro"+e);
+        }finally{
+            session.close();
+        }
+
     }
 
     @Override
@@ -100,12 +116,12 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
         FilterReturn filterReturn = new FilterReturn();
         filterReturn.setTotalEntities(countResults);
 //        Query selectQuery = session.createQuery("From Funcionario Where nome LIKE :filter");
-        Query selectQuery = session.createQuery("From Funcionario Where nome LIKE :filter");
-        selectQuery.setParameter("filter", "%"+filter+"%");
+        Query selectQuery = session.createQuery("From Funcionario f Where nome LIKE :filter");
+        selectQuery.setParameter("filter", "%" + filter + "%");
         selectQuery.setFirstResult((pageNumber - 1) * pageSize);
         selectQuery.setMaxResults(pageSize);
         List<Funcionario> funcionarios = selectQuery.list();
-        
+
         filterReturn.setEmployees(funcionarios);
         return filterReturn;
     }
