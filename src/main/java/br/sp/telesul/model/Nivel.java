@@ -10,5 +10,5 @@ package br.sp.telesul.model;
  * @author ebranco
  */
 public enum Nivel {
-    Básico, Intermediário, Técnico, Avançado
+    Nativo, Básico, Intermediário, Técnico, Avançado,Fluente
 }

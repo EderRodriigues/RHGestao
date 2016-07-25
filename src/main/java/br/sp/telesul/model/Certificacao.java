@@ -7,7 +7,6 @@ package br.sp.telesul.model;
 
 import br.sp.telesul.jackson.CustomDateDeserializer;
 import br.sp.telesul.jackson.CustomDateSerializer;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.Serializable;
@@ -39,30 +38,24 @@ public class Certificacao implements Serializable {
     private String nome;
     @Column(name = "empresa")
     private String empresa;
-
+    
+    @Column(name="dtExame")
     @Temporal(TemporalType.DATE)
     @JsonSerialize(using = CustomDateSerializer.class)
     @JsonDeserialize(using = CustomDateDeserializer.class)
     private Date dtExame;
-
+    
+    @Column(name="dtValidade")
     @Temporal(TemporalType.DATE)
     @JsonSerialize(using = CustomDateSerializer.class)
     @JsonDeserialize(using = CustomDateDeserializer.class)
     private Date dtValidade;
 
-    @Column
+    @Column(name="copia")
     private String copia;
 
     public Certificacao() {
 
-    }
-
-    public int getId() {
-        return idCertificacao;
-    }
-
-    public void setId(int id) {
-        this.idCertificacao = id;
     }
 
     public String getNome() {
@@ -123,9 +116,7 @@ public class Certificacao implements Serializable {
 
     @Override
     public String toString() {
-        return "idCertificacao=" + idCertificacao + ", nome=" + nome + ", empresa=" + empresa;
-    }
-
-   
+        return "Certificacao{" + "idCertificacao=" + idCertificacao + ", codigo=" + codigo + ", nome=" + nome + ", empresa=" + empresa + ", dtExame=" + dtExame + ", dtValidade=" + dtValidade + ", copia=" + copia + '}';
+    }  
 
 }

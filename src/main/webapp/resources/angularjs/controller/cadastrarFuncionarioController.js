@@ -13,7 +13,10 @@ app.controller("CadastrarFuncionario", function ($scope, crudService, crudCertif
     $scope.newFormacoes;
     $scope.newCertificacoes;
     $scope.novoIdioma;
-
+    $scope.indexColor;
+    $scope.applyClass = function (option, index){
+        $scope.indexColor = index;
+    };
    
     $scope.languages = ["Português", "Inglês", "Espanhol", "Frânces", "Alemão", "Italiano", "Grego", "Russo", "Indi", "Japônes", "Chinês", "Mandarim", "Hebraíco"];
     $scope.options = ["Dados Cadastrais", "Formação Acadêmica", "Idioma", "Certificação"];

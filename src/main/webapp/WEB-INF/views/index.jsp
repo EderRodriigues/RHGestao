@@ -19,9 +19,9 @@
     </head>
     <style>
         body{
-            background-image: url("resources/imgs/blue-light.jpg");
-            background-repeat: no-repeat; 
-            background-size: 1600px;
+            background-image: url("resources/imgs/fabric-of-squares.png");
+            background-repeat: repeat; 
+           
 
         }
         

@@ -33,10 +33,16 @@
         <link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="resources/css/estilo.css" rel="stylesheet" type="text/css"/>
         <style>
-            body{
+            /*body{
                 background-image: url("resources/imgs/blue-light.jpg");
                 background-repeat: no-repeat; 
                 background-size: 1920px;
+            }*/
+            body{
+                background-image: url("resources/imgs/fabric-of-squares.png");
+                background-repeat: repeat; 
+
+
             }
             #dtNasc{
                 width: 30%;
@@ -104,10 +110,10 @@
                         <div search></div>
                         <div ng-show="selecionado">
                             <ul class="nav nav-tabs">
-                                <li ng-repeat="op in options"><a href="#" ng-click="ativarForm($index)">{{op}}</a></li>
+                                <li ng-class="indexColor === $index ? 'active' : 'none'" ng-click="applyClass(op, $index)" ng-repeat="op in options"><a href="#" ng-click="ativarForm($index)">{{op}}</a></li>
                             </ul>
                             <div ng-show="optionsBoolean[0]">
-                                <table class="table table-condensed">
+                                <table class="table table-condensed table-hover">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -116,62 +122,144 @@
                                             <th>Area</th>                                       
                                             <th>Data de Admissão</th>                                       
                                             <th>Gestor</th>
+                                            <th></th>
+                                            <th></th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th><input class="form-control" ng-model="selecionado.idFuncionario"/></th>
-                                            <th><input class="form-control" ng-model="selecionado.nome"/></th>                                
-                                            <th><input class="form-control" ng-model="selecionado.cargo"/></th>
-                                            <th><input class="form-control" ng-model="selecionado.area"/></th>
-                                            <th id="dtNasc">  
+                                            <td><input class="form-control" ng-model="selecionado.idFuncionario"/></td>
+                                            <td><input class="form-control" ng-model="selecionado.nome"/></td>                                
+                                            <td><input class="form-control" ng-model="selecionado.cargo"/></td>
+                                            <td><input class="form-control" ng-model="selecionado.area"/></td>
+                                            <td id="dtNasc">  
                                                 <div class='input-group date dtpicker'>
                                                     <input type="text" class="form-control" ng-model="selecionado.dtAdmissao"/>
                                                     <span class="input-group-addon">
                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                     </span>
                                                 </div>
-                                            </th>
-                                            <th><input class="form-control" ng-model="selecionado.gestor"/></th>
+                                            </td>
+                                            <td><input class="form-control" ng-model="selecionado.gestor"/></td>
                                             <!--<th><a href="#" ng-click="addCertificados('lg', selecionado.certificacoes)"><span id="add" class="glyphicon glyphicon-plus"></span></a></th>-->
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div ng-show="optionsBoolean[1]">
-                                <table class="table table-hover">
+                                <table class="table table-hover table-condensed">
                                     <thead>
+                                    <th>Nivel</th>
                                     <th>Nome</th>
                                     <th>Instituicao</th>
                                     <th>Copia de Certificação</th>                                        
+                                    <th></th>                                        
+                                    <th></th>                                        
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="formacao in selecionado.formacoes">
-                                            <th><input class="form-control" ng-model="formacao.curso"></th>
-                                            <th><input class="form-control" ng-model="formacao.instituicao"></th>
-                                            <th><input class="form-control" ng-model="formacao.copiaCertificado"></th>
+                                            <td>
+                                                <input type="text" class="form-control" readonly="true" ng-model="formacao.nivel" ng-hide="selecionado.checked">
+                                                <input type="text" class="form-control" ng-model="formacao.nivel" ng-show="selecionado.checked">
+
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" readonly="true" ng-model="formacao.curso" ng-hide="selecionado.checked">
+                                                <input type="text" class="form-control" ng-model="formacao.curso" ng-show="selecionado.checked">
+
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" readonly="true" ng-model="formacao.instituicao" ng-hide="selecionado.checked">
+                                                <input type="text" class="form-control"  ng-model="formacao.instituicao" ng-show="selecionado.checked">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" readonly="true" ng-model="formacao.copiaCertificado" ng-hide="selecionado.checked">
+                                                <input type="text" class="form-control" ng-model="formacao.copiaCertificado" ng-show="selecionado.checked">
+
+                                            </td>
+                                            <td>
+                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow()" ng-hide="selecionado.checked">Edit</button>
+                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow()" ng-show="selecionado.checked">Save</button>
+                                                <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'formacao')">Remove</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="form-control" ng-model="newFormacoes.nivel">
+
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" ng-model="newFormacoes.curso">
+
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" ng-model="newFormacoes.instituicao">
+                                            </td>
+                                            <td>
+                                                <label class="radio-inline"><input type="radio" name="optradio" ng-click="selectCopiaFormacao('Sim')">Sim</label>
+                                                <label class="radio-inline"><input type="radio" name="optradio" ng-click="selectCopiaFormacao('Não')">Não</label>
+                                            </td>
+                                            <td>
+                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="addRow(newFormacoes, 'formacao')">Adicionar</button>
+                                                <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow()">Cancel</button>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div ng-show="optionsBoolean[2]">
-                                <table class="table table-condensed">
+                                <table class="table table-condensed table-hover">
                                     <thead>
                                     <th>Idioma</th>
                                     <th>Nível</th>                                        
+                                    <th></th>                                        
+                                    <th></th>                                        
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="idioma in selecionado.idiomas">
-                                            <th><input class="form-control" ng-model="idioma.nome"></th>
-                                            <th><input class="form-control" ng-model="idioma.nivel"></th>
+                                            <td>
+                                                <input type="text" class="form-control" readonly="true" ng-model="idioma.nome" ng-hide="selecionado.checked">
+                                                <select class="form-control" id="sel1" ng-model="idioma.nome" ng-show="selecionado.checked">
+                                                    <option  ng-repeat="language in languages">{{language}}</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" readonly="true" ng-model="idioma.nivel" ng-hide="selecionado.checked">
+                                                <select class="form-control" id="sel1" ng-model="idioma.nivel" ng-show="selecionado.checked">
+                                                    <option  ng-repeat="nivel in niveis">{{nivel}}</option>
+                                                </select>
 
+                                            </td>
+
+                                            <td>
+                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow()" ng-hide="selecionado.checked">Edit</button>
+                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow(formacao)" ng-show="selecionado.checked">Save</button>
+                                                <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'idioma')">Remove</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <select class="form-control" id="sel1" ng-model="novoIdioma.nome">
+                                                    <option  ng-repeat="language in languages">{{language}}</option>
+                                                </select>
+
+                                            </td>
+                                            <td>
+                                                <select class="form-control" id="sel1" ng-model="novoIdioma.nivel">
+                                                    <option  ng-repeat="nivel in niveis">{{nivel}}</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="addRow(novoIdioma, 'idioma')">Adicionar</button>
+                                                <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow()">Cancel</button>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div ng-show="optionsBoolean[3]">
-                                <table class="table table-condensed">
+                                <table class="table table-condensed table-hover">
                                     <thead>
                                     <th>Codigo</th>
                                     <th>Curso</th>
@@ -179,36 +267,104 @@
                                     <th>Data de Exame</th>
                                     <th>Data de Validade</th>
                                     <th>Copia de Certificação</th>
+                                    <th></th>
+                                    <th></th>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="cert in selecionado.certificacoes">
-                                            <th><input class="form-control sizeInput" ng-model="cert.codigo"></th>
-                                            <th><input class="form-control sizeInput" ng-model="cert.nome"></th>
-                                            <th><input class="form-control sizeInput" ng-model="cert.empresa"></th>
-                                            <th>
-                                             
-                                                <div class='input-group date' data-provide="datepicker">
-                                                    <input type="text" class="form-control dtExame" ng-model="cert.dtExame"/>
+                                        <tr ng-repeat="certificacao in selecionado.certificacoes">
+                                            <td>
+                                                <input type="text" class="form-control sizeInput" readonly="true" ng-model="certificacao.codigo" ng-hide="selecionado.checked">
+                                                <input type="text" class="form-control sizeInput" ng-model="certificacao.codigo" ng-show="selecionado.checked">
+
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control sizeInput" readonly="true" ng-model="certificacao.empresa" ng-hide="selecionado.checked">
+                                                <input type="text" class="form-control sizeInput"  ng-model="certificacao.empresa" ng-show="selecionado.checked">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control sizeInput" readonly="true" ng-model="certificacao.nome" ng-hide="selecionado.checked">
+                                                <input type="text" class="form-control sizeInput"  ng-model="certificacao.nome" ng-show="selecionado.checked">
+                                            </td>
+                                            <td>                                            
+                                                <input type="text" class="form-control" readonly="true" ng-model="certificacao.dtExame" ng-hide="selecionado.checked">
+                                                <div class='input-group date dtpicker' data-provide="datepicker" ng-show="selecionado.checked">
+                                                    <input type="text" class="form-control" ng-model="certificacao.dtExame"/>
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>              
+                                                <input type="text" class="form-control" readonly="true" ng-model="certificacao.dtValidade" ng-hide="selecionado.checked">
+                                                <div class='input-group date dtpicker' data-provide="datepicker" ng-show="selecionado.checked">
+                                                    <input type="text" class="form-control" ng-model="certificacao.dtValidade"/>
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control sizeInput" readonly="true" ng-model="certificacao.copia" ng-hide="selecionado.checked">
+                                                <input type="text" class="form-control sizeInput" ng-model="certificacao.copia" ng-show="selecionado.checked">
+
+                                            </td>
+                                            <td>
+                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow()" ng-show="funcionario.checked">Save</button>
+                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow()" ng-hide="funcionario.checked">Editar</button>
+                                            </td>
+                                            <td>
+                                                <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'certificacao')">Remove</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="form-control sizeInput" ng-model="newCertificacoes.codigo">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control sizeInput" ng-model="newCertificacoes.empresa">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control sizeInput" ng-model="newCertificacoes.nome">
+                                            </td>
+                                            <td>
+                                                <div class='input-group date dtpicker' data-provide="datepicker">
+                                                    <input type="text" class="form-control" ng-model="newCertificacoes.dtExame"/>
                                                     <div class="input-group-addon">
                                                         <div class="glyphicon glyphicon-calendar"></div>
                                                     </div>
                                                 </div>
-                                            </th>
-                                            <th>
-                                                <div class='input-group date' data-provide="datepicker">
-                                                    <input type="text" class="form-control" ng-model="cert.dtValidade"/>
+                                            </td>
+                                            <td>
+                                                <div class='input-group date dtpicker' data-provide="datepicker">
+                                                    <input type="text" class="form-control" ng-model="newCertificacoes.dtValidade"/>
                                                     <div class="input-group-addon">
                                                         <div class="glyphicon glyphicon-calendar"></div>
                                                     </div>
                                                 </div>
-                                            </th>
-                                            <th><input class="form-control sizeInput" ng-model="cert.copia"></th>
+                                            </td>
+                                            <td>
+                                                <!--<label class="radio-inline"><input type="radio" name="optradio" ng-click="selectCopiaCertificacao('Sim')">Sim</label>
+                                                <label class="radio-inline" id="radio2"><input type="radio" name="optradio" ng-click="selectCopiaCertificacao('Não')">Não</label>-->
+                                                <select class="form-control" id="sel1" ng-model="newCertificacoes.copia">
+                                                    <option>Sim</option>
+                                                    <option>Não</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="addRow(newCertificacoes, 'certificacao')">Adicionar</button>
+                                            </td>
+                                            <td>
+
+                                            </td>
+
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <button class="btn btn-primary" ng-click="save(selecionado)">Salvar</button>
-                            <button class="btn btn-danger" ng-click="remove(selecionado)">Deletar</button><br><br><br>
+                            <div ng-show="optionsBoolean[0] || optionsBoolean[1] || optionsBoolean[2] || optionsBoolean[3]">
+                                <button class="btn btn-primary" ng-click="save(selecionado)">Salvar</button>
+                                <button class="btn btn-danger" ng-click="remove(selecionado)">Deletar</button>
+                            </div><br><br><br>
                         </div>
 
                     </form>

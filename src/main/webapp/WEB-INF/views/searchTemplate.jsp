@@ -21,20 +21,22 @@
                         <tr>
                             <th>Selecionar</th>
                             <th>Nome</th>
-                            <th>Setor</th>                        
+                            <th>Cargo</th>
+                            <th>Área</th>                        
                         </tr>
                     </thead>
                     <tbody>
-                        <tr 
+                        <tr ng-click="isEmployeeSelected(employee)"
                             dir-paginate="employee in employees| filter:filtro | itemsPerPage: tamanhoPagina" 
                             total-items="total2" current-page="atualPagina" pagination-id="entityPagination2">
                             <td>
-                                <input name="choosenEntity" type="radio" ng-click="isEmployeeSelected(employee)">
+                                <input name="choosenEntity" type="radio" ng-checked="selecionado">
                             </td>
                             <td>
                                 {{employee.nome}}
                             </td>
-                            <td>{{employee.setor}}</td>
+                            <td>{{employee.cargo}}</td>
+                            <td>{{employee.area}}</td>
                         </tr>
                     </tbody>
                 </table>

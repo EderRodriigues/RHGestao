@@ -59,7 +59,7 @@ public class CrudCertificacoesController {
     public @ResponseBody
     ResponseEntity<Certificacao> save(@RequestBody Certificacao certificacao) {
 
-        if (certificacao.getId() == 0) {
+        if (certificacao.getIdCertificacao()== 0) {
             this.certificacaoService.salve(certificacao);
         }else{
             this.certificacaoService.change(certificacao);

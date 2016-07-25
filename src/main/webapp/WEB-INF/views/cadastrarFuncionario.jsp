@@ -35,10 +35,16 @@
         <link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="resources/css/estilo.css" rel="stylesheet" type="text/css"/>
         <style>
-            body{
+            /*body{
                 background-image: url("resources/imgs/blue-light.jpg");
                 background-repeat: no-repeat; 
                 background-size: 1641px;
+            }*/
+            body{
+                background-image: url("resources/imgs/fabric-of-squares.png");
+                background-repeat: repeat; 
+
+
             }
         </style>
     </head>
@@ -77,7 +83,7 @@
                 <uib-alert id="msgError" ng-show="alert.type === 'danger'"  ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
             </div>
             <ul class="nav nav-tabs">
-                <li ng-repeat="op in options"><a href="#" ng-click="ativarForm($index)">{{op}}</a></li>
+                <li ng-class="indexColor === $index ? 'active' : 'none'" ng-click="applyClass(op, $index)" ng-repeat="op in options"><a href="#" ng-click="ativarForm($index)">{{op}}</a></li>
             </ul>
             <div class="panel panel-default" ng-show="booleanForm">
 
@@ -141,7 +147,7 @@
                                         <td>
                                             <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow()" ng-hide="funcionario.checked">Edit</button>
                                             <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow()" ng-show="funcionario.checked">Save</button>
-                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index,'formacao')">Remove</button>
+                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'formacao')">Remove</button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -177,6 +183,8 @@
                                     <tr>
                                         <th>Idioma</th>
                                         <th>Nivel</th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -198,7 +206,7 @@
                                         <td>
                                             <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow()" ng-hide="funcionario.checked">Edit</button>
                                             <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow(formacao)" ng-show="funcionario.checked">Save</button>
-                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index,'idioma')">Remove</button>
+                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'idioma')">Remove</button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -233,6 +241,7 @@
                                         <th>Data Exame</th>
                                         <th>Validade Exame</th>
                                         <th>Cópia de Certificado</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -252,11 +261,21 @@
                                         </td>
                                         <td>                                            
                                             <input type="text" class="form-control" readonly="true" ng-model="certificacao.dtExame" ng-hide="funcionario.checked">
-                                            <input data-provide="datepicker" class="form-control"  ng-model="certificacao.dtExame" ng-show="funcionario.checked">
+                                            <div class='input-group date dtpicker' data-provide="datepicker" ng-show="funcionario.checked">
+                                                <input type="text" class="form-control" ng-model="certificacao.dtExame"/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
                                         </td>
                                         <td>              
                                             <input type="text" class="form-control" readonly="true" ng-model="certificacao.dtValidade" ng-hide="funcionario.checked">
-                                            <input data-provide="datepicker" class="form-control"  ng-model="certificacao.dtValidade" ng-show="funcionario.checked">
+                                            <div class='input-group date dtpicker' data-provide="datepicker" ng-show="funcionario.checked">
+                                                <input type="text" class="form-control" ng-model="certificacao.dtValidade"/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" readonly="true" ng-model="certificacao.copia" ng-hide="funcionario.checked">
@@ -268,7 +287,7 @@
                                             <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow()" ng-hide="funcionario.checked">Editar</button>
                                         </td>
                                         <td>
-                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index,'certificacao')">Remove</button>
+                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'certificacao')">Remove</button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -279,7 +298,7 @@
                                             <input type="text" class="form-control sizeInput" ng-model="newCertificacoes.empresa">
                                         </td>
                                         <td>
-                                             <input type="text" class="form-control sizeInput" ng-model="newCertificacoes.codigo">
+                                            <input type="text" class="form-control sizeInput" ng-model="newCertificacoes.codigo">
                                         </td>
                                         <td>
                                             <div class='input-group date dtpicker' data-provide="datepicker">

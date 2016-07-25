@@ -49,3 +49,11 @@ nav{
 .sizeInput{
     width: 150px;
 }
+.table-hover tbody tr:hover td{
+    /*    background: #bce8f1;*/
+    background: #9acfea;
+}
+thead{
+    background: #428bca;
+    color: white;
+}

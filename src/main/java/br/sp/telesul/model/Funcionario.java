@@ -70,7 +70,7 @@ public class Funcionario implements Serializable {
 
     }
 
-    public Funcionario(int idFuncionario, String nome, String cargo, Date dtAdmissao, List<Formacao> formacoes, String area, String gestor) {
+    public Funcionario(int idFuncionario, String nome, String cargo, Date dtAdmissao, List<Formacao> formacoes, String area, String gestor, List<Certificacao> certificacoes, List<Idioma> idiomas) {
         this.idFuncionario = idFuncionario;
         this.nome = nome;
         this.cargo = cargo;
@@ -78,6 +78,8 @@ public class Funcionario implements Serializable {
         this.formacoes = formacoes;
         this.area = area;
         this.gestor = gestor;
+        this.certificacoes = certificacoes;
+        this.idiomas = idiomas;
     }
 
     public Date getDtAdmissao() {
@@ -120,14 +122,6 @@ public class Funcionario implements Serializable {
         this.cargo = cargo;
     }
 
-    public Date getDtAdmissão() {
-        return dtAdmissao;
-    }
-
-    public void setDtAdmissão(Date dtAdmissão) {
-        this.dtAdmissao = dtAdmissão;
-    }
-
     public String getArea() {
         return area;
     }
@@ -162,7 +156,7 @@ public class Funcionario implements Serializable {
 
     @Override
     public String toString() {
-        return "Funcionario{" + "idFuncionario=" + idFuncionario + ", nome=" + nome + ", cargo=" + cargo + ", dtAdmiss\u00e3o=" + dtAdmissao + ", formacoes=" + formacoes + ", area=" + area + ", gestor=" + gestor + ", certificacoes=" + certificacoes + ", idiomas=" + idiomas + '}';
+        return "Funcionario{" + "idFuncionario=" + idFuncionario + ", nome=" + nome + ", cargo=" + cargo + ", dtAdmissao=" + dtAdmissao + ", formacoes=" + formacoes + ", area=" + area + ", gestor=" + gestor + ", certificacoes=" + certificacoes + ", idiomas=" + idiomas + '}';
     }
 
 }
