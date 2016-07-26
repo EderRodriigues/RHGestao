@@ -56,7 +56,7 @@
         </nav>
         <section>
             <!--<img id="home" src="resources/imgs/blue-light.jpg"/>-->
-
+            
 
         </section>
     </body>

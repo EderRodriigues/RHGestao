@@ -6,7 +6,7 @@
 
 
 var app = angular.module("rhApp");
-app.controller("atualizarFuncionario", function ($scope, crudService, crudCertificacoesService, $uibModal, broadCastService) {
+app.controller("atualizarFuncionario", function ($scope, crudService, crudCertificacoesService, $uibModal, broadCastService, exportService) {
     $scope.funcionarios;
     $scope.selecionado;
     $scope.languages = ["Português", "Inglês", "Espanhol", "Frânces", "Alemão", "Italiano", "Grego", "Russo", "Indi", "Japônes", "Chinês", "Mandarim", "Hebraíco"];
@@ -38,10 +38,11 @@ app.controller("atualizarFuncionario", function ($scope, crudService, crudCertif
         console.log($scope.newFormacoes);
 
     };
-    $scope.isEmployeeSelected = function (employee) {
+    $scope.isEmployeeSelected = function (employee,index) {
         $("#loader").show();
         console.log("employee");
         console.log(employee);
+        $scope.indexEmployee = index;
         $scope.selecionado = employee;
         $("#loader").hide();
     };
@@ -156,5 +157,15 @@ app.controller("atualizarFuncionario", function ($scope, crudService, crudCertif
             $scope.selecionado.idiomas.splice(index, 1);
         }
 
+    };
+    
+    var columns = ["idFuncionario","nome","cargo","dtAdmissao","formacoes","area","gestor","certificacoes","idiomas"];
+    $scope.exportType = function (type){
+        var ajax = exportService.exportType(type,columns);
+        ajax.success(function(){
+            console.log("Ok");
+        }).error(function(){
+            console.log("Error");
+        });
     };
 });

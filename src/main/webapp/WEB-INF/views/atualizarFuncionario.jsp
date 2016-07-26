@@ -24,6 +24,7 @@
         <script src="resources/angularjs/services/crudService.js" type="text/javascript"></script>
         <script src="resources/angularjs/services/crudCertificacoesService.js" type="text/javascript"></script>
         <script src="resources/angularjs/services/broadCastService.js" type="text/javascript"></script>
+        <script src="resources/angularjs/services/exportService.js" type="text/javascript"></script>
         <script src="resources/js/datepicker/datepicker.js" type="text/javascript"></script>
         <script src="resources/bootstrap/js/bootstrap-datepicker.pt-BR.js" type="text/javascript"></script>
         <script src="resources/angularjs/external/dirPagination.js" type="text/javascript"></script>
@@ -364,6 +365,15 @@
                             <div ng-show="optionsBoolean[0] || optionsBoolean[1] || optionsBoolean[2] || optionsBoolean[3]">
                                 <button class="btn btn-primary" ng-click="save(selecionado)">Salvar</button>
                                 <button class="btn btn-danger" ng-click="remove(selecionado)">Deletar</button>
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Gerar Relatório
+                                        <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" ng-click="exportType('xls')">Excel 97 - 2003</a></li>
+                                        <li><a href="#" ng-click="exportType('xlsx')">Excel</a></li>
+                                        <li><a href="#" ng-click="exportType('pdf')">PDF</a></li>
+                                    </ul>
+                                </div>
                             </div><br><br><br>
                         </div>
 

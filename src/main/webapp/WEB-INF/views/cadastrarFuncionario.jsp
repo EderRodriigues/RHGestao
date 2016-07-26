@@ -242,6 +242,7 @@
                                         <th>Validade Exame</th>
                                         <th>Cópia de Certificado</th>
                                         <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
