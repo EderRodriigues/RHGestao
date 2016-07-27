@@ -159,13 +159,10 @@ app.controller("atualizarFuncionario", function ($scope, crudService, crudCertif
 
     };
     
-    var columns = ["idFuncionario","nome","cargo","dtAdmissao","formacoes","area","gestor","certificacoes","idiomas"];
+    var columns = ["Nome","Cargo","Data de Admissao","Área","Gestor"];
+    
     $scope.exportType = function (type){
-        var ajax = exportService.exportType(type,columns);
-        ajax.success(function(){
-            console.log("Ok");
-        }).error(function(){
-            console.log("Error");
-        });
+        exportService.exportType(type,columns);
+      
     };
 });

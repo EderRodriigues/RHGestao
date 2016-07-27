@@ -16,6 +16,6 @@ import org.springframework.stereotype.Service;
 public interface ExportService {
 
     public void generateReport(String formatType);
-    public void buildExcelDocument(String templateName, List<String> columns);
+    public void buildExcelDocument(String type, List<String>columns, List<String>columnsFormacao,List<String>columnsIdiomas,List<String>columnsCertificacoes);
 
 }

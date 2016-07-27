@@ -77,7 +77,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
     public List<Funcionario> search() {
         Session session = this.sessionFactory.getCurrentSession();
 
-        List<Funcionario> funcionarios = session.createQuery("from Funcionario").list();
+        List<Funcionario> funcionarios = (List<Funcionario>) session.createQuery("from Funcionario").list();
         return funcionarios;
 
     }

@@ -72,6 +72,9 @@
     <beans:bean id="certificacaoService" class="br.sp.telesul.service.CertificacaoServiceImpl">
         <beans:property name="certificacaoDAO" ref="certificacaoDAO"></beans:property>
     </beans:bean>
+    <beans:bean id="exportService" class="br.sp.telesul.service.ExportServiceImpl">
+        <!--<beans:property name="exportServiceDAO" ref="certificacaoDAO"></beans:property>-->
+    </beans:bean>
     <context:component-scan base-package="br.sp.telesul" />
      
     <tx:annotation-driven transaction-manager="transactionManager"/>
