@@ -5,7 +5,7 @@
  */
 
 var app = angular.module("rhApp");
-app.controller("CadastrarFuncionario", function ($scope, crudService, crudCertificacoesService, $uibModal, broadCastService) {
+app.controller("CadastrarFuncionario", function ($scope, crudService, $uibModal, broadCastService) {
     $scope.funcionario = {};
     $scope.funcionario.formacoes = [];
     $scope.funcionario.idiomas = [];
@@ -14,10 +14,10 @@ app.controller("CadastrarFuncionario", function ($scope, crudService, crudCertif
     $scope.newCertificacoes;
     $scope.novoIdioma;
     $scope.indexColor;
-    $scope.applyClass = function (option, index){
+    $scope.applyClass = function (option, index) {
         $scope.indexColor = index;
     };
-   
+
     $scope.languages = ["Português", "Inglês", "Espanhol", "Frânces", "Alemão", "Italiano", "Grego", "Russo", "Indi", "Japônes", "Chinês", "Mandarim", "Hebraíco"];
     $scope.options = ["Dados Cadastrais", "Formação Acadêmica", "Idioma", "Certificação"];
     $scope.optionsBoolean = [false, false, false, false];
@@ -69,7 +69,7 @@ app.controller("CadastrarFuncionario", function ($scope, crudService, crudCertif
 //        }
         return boolean;
     }
-    
+
     $scope.save = function () {
         console.log($scope.funcionario);
         if ($scope.funcionario.idFuncionario === null || $scope.funcionario.idFuncionario === undefined) {
@@ -84,6 +84,10 @@ app.controller("CadastrarFuncionario", function ($scope, crudService, crudCertif
         }
 
         $scope.funcionario = {};
+        $scope.funcionario.formacoes = [];
+        $scope.funcionario.idiomas = [];
+        $scope.funcionario.certificacoes = [];
+
 //        for (var i = 0; i < $scope.optionsBoolean.length; i++) {
 //            $scope.optionsBoolean[i] = false;
 //        }
@@ -119,16 +123,14 @@ app.controller("CadastrarFuncionario", function ($scope, crudService, crudCertif
         $scope.funcionario.checked = !$scope.funcionario.checked;
     };
     $scope.removeRow = function (index, template) {
-        if(template === "formacao"){
+        if (template === "formacao") {
             $scope.funcionario.formacoes.splice(index, 1);
-        }
-        else if(template === "certificacao"){
+        } else if (template === "certificacao") {
             $scope.funcionario.certificacoes.splice(index, 1);
-        }
-        else if(template === "idioma"){
+        } else if (template === "idioma") {
             $scope.funcionario.idiomas.splice(index, 1);
         }
-        
+
     };
 
 

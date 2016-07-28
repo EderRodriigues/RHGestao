@@ -69,9 +69,7 @@
     <beans:bean id="funcionarioService" class="br.sp.telesul.service.FuncionarioServiceImpl">
         <beans:property name="funcionarioDAO" ref="funcionarioDAO"></beans:property>
     </beans:bean>
-    <beans:bean id="certificacaoService" class="br.sp.telesul.service.CertificacaoServiceImpl">
-        <beans:property name="certificacaoDAO" ref="certificacaoDAO"></beans:property>
-    </beans:bean>
+ 
     <beans:bean id="exportService" class="br.sp.telesul.service.ExportServiceImpl">
         <!--<beans:property name="exportServiceDAO" ref="certificacaoDAO"></beans:property>-->
     </beans:bean>

@@ -21,10 +21,9 @@
         body{
             background-image: url("resources/imgs/fabric-of-squares.png");
             background-repeat: repeat; 
-           
+
 
         }
-        
     </style>
     <body>
         <nav class="navbar navbar-default">
@@ -42,21 +41,12 @@
                             <li><a class="op" href="atualizarFuncionario">Atualizar</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Certificações
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="op" href="cadastrarCertificacao">Cadastrar</a></li>
-                            <li><a class="op" href="atualizarCertificacao">Atualizar</a></li>
-                        </ul>
-                    </li>
-
                 </ul>
             </div>
         </nav>
         <section>
-            <!--<img id="home" src="resources/imgs/blue-light.jpg"/>-->
-            
+            <!--<img id="home" src="resources/imgs/Telesul.png"/>-->
+
 
         </section>
     </body>

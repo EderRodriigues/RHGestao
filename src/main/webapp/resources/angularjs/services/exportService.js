@@ -13,12 +13,12 @@ app.constant("exportType", "export/exportFile").factory("exportService", functio
         exportType: function (type, columns) {
             var ajaxget = $http({
                 url: exportType + "/" + type + "/" + columns,
-                method: 'POST',
+                method: 'GET',
                 async: true,
                 cache: false,
                 headers: {'Accept': 'application/json', 'Pragma': 'no-cache'}
             });
-            return ajaxget;
+           
         }
     };
 

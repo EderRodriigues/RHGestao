@@ -67,4 +67,8 @@ public class IndexController {
     public ModelAndView searchAllTemplate(){
         return new ModelAndView("searchAllTemplate");
     }
+    @RequestMapping(value="/export")
+    public ModelAndView exportTemplate(){
+        return new ModelAndView("export");
+    }
 }

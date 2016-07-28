@@ -11,7 +11,12 @@ import br.sp.telesul.model.Funcionario;
 import br.sp.telesul.model.Idioma;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -45,39 +50,20 @@ public class ExportServiceImpl implements ExportService {
     }
 
     @Override
-    public void generateReport(String formatType) {
-        switch (formatType) {
-            case "xls": {
-//                logger.info("Generating xls report for {}", templateName);
-//                excelReport.buildXLSDocument(templateName, visibleColumns, request, response, fullReport);
-                break;
-            }
-            case "xlsx": {
-//                logger.info("Generating xlsx report for {}", templateName);
-//                excelReport.buildXLSXDocument(templateName, visibleColumns, request, response, fullReport);
-                break;
-            }
-            default: {
-//                logger.error("Format {} not supported", formatType);
-                break;
-            }
-        }
-    }
-
-    @Override
-    public void buildExcelDocument(String type, List<String> columns, List<String> columnsFormacao, List<String> columnsIdiomas, List<String> columnsCertificacoes) {
+    public void buildExcelDocument(String type, List<String> columns, List<String> columnsFormacao, List<String> columnsIdiomas, List<String> columnsCertificacoes,HttpServletRequest request, HttpServletResponse response) {
 
         writeExcel("Funcionarios", columns);
         writeExcelFormacao("Formações", columnsFormacao);
         writeExcelIdiomas("Idiomas", columnsIdiomas);
         writeExcelCertificacoes("Certificações", columnsCertificacoes);
+        downloadExcel(request, response, workbook);
     }
 
     public void writeExcel(String templateHead, List<String> columns) {
         try {
             List<Funcionario> funcionarios = funcionarioService.search();
 
-//            HSSFWorkbook workbook = new HSSFWorkbook();
+
             HSSFSheet sheet = workbook.createSheet(templateHead);
 
             Row rowHeading = sheet.createRow(0);
@@ -100,7 +86,6 @@ public class ExportServiceImpl implements ExportService {
             for (Funcionario f : funcionarios) {
                 Row row = sheet.createRow(r);
 
-               
                 Cell Nome = row.createCell(0);
                 Nome.setCellValue(f.getNome());
                 Cell cargo = row.createCell(1);
@@ -126,14 +111,9 @@ public class ExportServiceImpl implements ExportService {
             for (int i = 0; i < columns.size(); i++) {
                 sheet.autoSizeColumn(i);
             }
-            String file = "C:/Users/ebranco.TELESULCORP/new.xls";
-            FileOutputStream out = new FileOutputStream(file);
-            workbook.write(out);
-            out.close();
-            workbook.close();
-            System.out.println("Excell write succesfully");
-        } catch (Exception e) {
 
+        } catch (Exception e) {
+            System.out.println("Error"+e);
         }
     }
 
@@ -188,14 +168,9 @@ public class ExportServiceImpl implements ExportService {
             for (int i = 0; i < columns.size(); i++) {
                 sheet.autoSizeColumn(i);
             }
-            String file = "C:/Users/ebranco.TELESULCORP/new.xls";
-            FileOutputStream out = new FileOutputStream(file);
-            workbook.write(out);
-            out.close();
-            workbook.close();
-            System.out.println("Excell write succesfully");
-        } catch (Exception e) {
 
+        } catch (Exception e) {
+            System.out.println("Error "+e);
         }
     }
 
@@ -261,14 +236,14 @@ public class ExportServiceImpl implements ExportService {
             for (int i = 0; i < columns.size(); i++) {
                 sheet.autoSizeColumn(i);
             }
-            String file = "C:/Users/ebranco.TELESULCORP/new.xls";
-            FileOutputStream out = new FileOutputStream(file);
-            workbook.write(out);
-            out.close();
-            workbook.close();
-            System.out.println("Excell write succesfully");
+//            String file = "C:/Users/ebranco.TELESULCORP/new.xls";
+//            FileOutputStream out = new FileOutputStream(file);
+//            workbook.write(out);
+//            out.close();
+//            workbook.close();
+//            System.out.println("Excell write succesfully");
         } catch (Exception e) {
-
+            System.out.println("Error"+e);
         }
     }
 
@@ -319,18 +294,35 @@ public class ExportServiceImpl implements ExportService {
             for (int i = 0; i < columns.size(); i++) {
                 sheet.autoSizeColumn(i);
             }
-            String file = "C:/Users/ebranco.TELESULCORP/new.xls";
-            FileOutputStream out = new FileOutputStream(file);
-            workbook.write(out);
-            out.close();
-            workbook.close();
-            System.out.println("Excell write succesfully");
-        } catch (Exception e) {
 
+        } catch (Exception e) {
+            System.out.println("Error"+e);
         }
     }
     
-    public void saveExcel(HSSFWorkbook wbk){
-        
-    };
+    public void downloadExcel(HttpServletRequest request, HttpServletResponse response, HSSFWorkbook wb) {
+        ServletOutputStream stream = null;
+        String fileName = "relatorio"+ " "+new Date().getTime();
+        fileName = fileName.replace(" ", "_");
+        try {
+            stream = response.getOutputStream();
+            response.setHeader("Content-Disposition", "attachment; filename=" + fileName + ".xls");
+            response.setContentType("application/vnd.ms-excel");
+            wb.write(stream);
+            System.out.println("Excel saved!!!!!");
+        } catch (Exception e) {
+            System.out.println("Error write excel"+e);
+        } finally {
+            if(stream != null){
+                try{
+                    stream.close();
+                    wb.close();
+                }catch(IOException io){
+                    System.out.println("Error close Steram"+io);
+                }
+                
+            }
+        }
+
+    }
 }

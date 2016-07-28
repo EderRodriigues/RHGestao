@@ -16,17 +16,15 @@
         <script src="<c:url value="resources/angularjs/external/angular.js"/>" type="text/javascript"></script>
         <script src="<c:url value="resources/angularjs/module/module.js"/>" type="text/javascript"></script>
         <script src="<c:url value="/resources/angularjs/controller/cadastrarFuncionarioController.js"/>" type="text/javascript"></script>
-        <script src="resources/angularjs/controller/modalCertificacaoController.js" type="text/javascript"></script>
+        
         <script src="resources/angularjs/controller/alertController.js" type="text/javascript"></script>
         <script src="resources/bootstrap/js/bootstrap.js" type="text/javascript"></script>
         <script src="resources/angularjs/external/ui-bootstrap-tpls-1.3.3.js" type="text/javascript"></script>
 
         <script src="resources/angularjs/services/restService.js" type="text/javascript"></script>
         <script src="resources/angularjs/services/crudService.js" type="text/javascript"></script>
-        <script src="resources/angularjs/services/crudCertificacoesService.js" type="text/javascript"></script>
+        
         <script src="resources/angularjs/services/broadCastService.js" type="text/javascript"></script>
-
-        <script src="resources/angularjs/directive/searchCertificacoes.js" type="text/javascript"></script>
         <script src="resources/js/datepicker/datepicker.js" type="text/javascript"></script>
         <script src="resources/bootstrap/js/bootstrap-datepicker.pt-BR.js" type="text/javascript"></script>
         <script src="resources/angularjs/external/dirPagination.js" type="text/javascript"></script>
@@ -35,11 +33,6 @@
         <link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="resources/css/estilo.css" rel="stylesheet" type="text/css"/>
         <style>
-            /*body{
-                background-image: url("resources/imgs/blue-light.jpg");
-                background-repeat: no-repeat; 
-                background-size: 1641px;
-            }*/
             body{
                 background-image: url("resources/imgs/fabric-of-squares.png");
                 background-repeat: repeat; 
@@ -83,7 +76,7 @@
                 <uib-alert id="msgError" ng-show="alert.type === 'danger'"  ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
             </div>
             <ul class="nav nav-tabs">
-                <li ng-class="indexColor === $index ? 'active' : 'none'" ng-click="applyClass(op, $index)" ng-repeat="op in options"><a href="#" ng-click="ativarForm($index)">{{op}}</a></li>
+                <li id="tabs" ng-class="indexColor === $index ? 'active' : 'none'" ng-click="applyClass(op, $index)" ng-repeat="op in options"><a href="#" ng-click="ativarForm($index)">{{op}}</a></li>
             </ul>
             <div class="panel panel-default" ng-show="booleanForm">
 
@@ -114,7 +107,7 @@
                     <form class="form-group" ng-show="optionsBoolean[1]">
                         <div class="panel-body">
                             <table class="table table-condensed">
-                                <thead>
+                                <thead class="headEmployee">
                                     <tr>
                                         <th>Nível</th>
                                         <th>Curso</th>
@@ -179,7 +172,7 @@
 
                         <div class="panel-body">
                             <table class="table table-condensed">
-                                <thead>
+                                <thead class="headEmployee">
                                     <tr>
                                         <th>Idioma</th>
                                         <th>Nivel</th>
@@ -233,7 +226,7 @@
                     <form class="form-group" ng-show="optionsBoolean[3]">
                         <div class="panel-body">
                             <table class="table table-condensed">
-                                <thead>
+                                <thead class="headEmployee">
                                     <tr>
                                         <th>Certificadora</th>
                                         <th>Exame</th>

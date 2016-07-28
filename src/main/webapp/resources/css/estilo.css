@@ -8,6 +8,10 @@ and open the template in the editor.
     Author     : Eder Rodrigues
 */
 
+body{
+    background-image: url("resources/imgs/fabric-of-squares.png");
+    background-repeat: repeat; 
+}
 
 #img{
     position: relative;
@@ -53,7 +57,54 @@ nav{
     /*    background: #bce8f1;*/
     background: #9acfea;
 }
-thead{
+.headEmployee{
     background: #428bca;
     color: white;
 }
+.navbar-default {
+    background: -moz-linear-gradient(top, #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%);
+    background: -webkit-linear-gradient(top, #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%);  
+    background: linear-gradient(to bottom, #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%);
+    border-color: #E7E7E7;
+}
+
+.navbar-default .navbar-nav > .open > a, 
+.navbar-default .navbar-nav > .open > a:hover, 
+.navbar-default .navbar-nav > .open > a:focus {
+    color: black;
+    /*background-color: #D5D5D5;*/
+    background: -webkit-linear-gradient(top, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); 
+    background: -moz-linear-gradient(top, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); 
+    background: linear-gradient(top, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); 
+}
+
+/* caret */
+.nav-tabs>#tabs>a:hover{
+    background: -webkit-linear-gradient(top, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); 
+    background: -moz-linear-gradient(top, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); 
+    background: linear-gradient(top, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); 
+}
+.nav-tabs>#tabs>a{
+
+    border: 1px solid #ccc;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    color: #555555;
+    cursor: default;
+    background: -webkit-linear-gradient(top, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); 
+    background: -moz-linear-gradient(top, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); 
+    background: linear-gradient(top, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); 
+    border: 1px solid #dddddd;
+    border-bottom-color: transparent;
+} 
+.panel-default > .panel-heading{
+  background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 92%,rgba(237,237,237,1) 100%);
+  background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 92%,rgba(237,237,237,1) 100%);
+  background: linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 92%,rgba(237,237,237,1) 100%);
+}
+.panel-default > .panel-body{
+    background: #ffffff
+}
+

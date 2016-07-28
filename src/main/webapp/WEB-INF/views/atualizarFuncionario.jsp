@@ -15,14 +15,14 @@
         <script src="<c:url value="resources/angularjs/external/angular.js"/>" type="text/javascript"></script>
         <script src="resources/angularjs/module/module.js" type="text/javascript"></script>
         <script src="resources/angularjs/controller/atualizarFuncionarioController.js" type="text/javascript"></script>
-        <script src="resources/angularjs/controller/modalCertificacaoController.js" type="text/javascript"></script>
+        
         <script src="resources/angularjs/controller/alertController.js" type="text/javascript"></script>
         <script src="resources/angularjs/external/ui-bootstrap-tpls-1.3.3.js" type="text/javascript"></script>
         <script src="resources/bootstrap/js/bootstrap.js" type="text/javascript"></script>
 
         <script src="resources/angularjs/services/restService.js" type="text/javascript"></script>
         <script src="resources/angularjs/services/crudService.js" type="text/javascript"></script>
-        <script src="resources/angularjs/services/crudCertificacoesService.js" type="text/javascript"></script>
+       
         <script src="resources/angularjs/services/broadCastService.js" type="text/javascript"></script>
         <script src="resources/angularjs/services/exportService.js" type="text/javascript"></script>
         <script src="resources/js/datepicker/datepicker.js" type="text/javascript"></script>
@@ -66,6 +66,10 @@
                 height: 100px;
                 width: 100px;
             }
+            #reports{
+                left: 146px;
+                top: -39px;
+            }
         </style>
     </head>
     <body ng-controller="atualizarFuncionario">
@@ -90,6 +94,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="op" href="cadastrarCertificacao">Cadastrar</a></li>
                             <li><a class="op" href="atualizarCertificacao">Atualizar</a></li>
+
                         </ul>
                     </li>
 
@@ -103,7 +108,7 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3>Funcionário</h3>
+                    <h4>Funcionário</h4>
                 </div>
                 <div class="panel panel-body" id="atualizarFuncionario">
                     <form class="formulario">
@@ -111,11 +116,11 @@
                         <div search></div>
                         <div ng-show="selecionado">
                             <ul class="nav nav-tabs">
-                                <li ng-class="indexColor === $index ? 'active' : 'none'" ng-click="applyClass(op, $index)" ng-repeat="op in options"><a href="#" ng-click="ativarForm($index)">{{op}}</a></li>
+                                <li id="tabs" ng-class="indexColor === $index ? 'active' : 'none'" ng-click="applyClass(op, $index)" ng-repeat="op in options"><a href="#" ng-click="ativarForm($index)">{{op}}</a></li>
                             </ul>
                             <div ng-show="optionsBoolean[0]">
                                 <table class="table table-condensed table-hover">
-                                    <thead>
+                                    <thead class="headEmployee">
                                         <tr>
                                             <th>ID</th>
                                             <th>Nome</th>
@@ -150,7 +155,7 @@
                             </div>
                             <div ng-show="optionsBoolean[1]">
                                 <table class="table table-hover table-condensed">
-                                    <thead>
+                                    <thead class="headEmployee">
                                     <th>Nivel</th>
                                     <th>Nome</th>
                                     <th>Instituicao</th>
@@ -211,7 +216,7 @@
                             </div>
                             <div ng-show="optionsBoolean[2]">
                                 <table class="table table-condensed table-hover">
-                                    <thead>
+                                    <thead class="headEmployee">
                                     <th>Idioma</th>
                                     <th>Nível</th>                                        
                                     <th></th>                                        
@@ -261,7 +266,7 @@
                             </div>
                             <div ng-show="optionsBoolean[3]">
                                 <table class="table table-condensed table-hover">
-                                    <thead>
+                                    <thead class="headEmployee">
                                     <th>Codigo</th>
                                     <th>Curso</th>
                                     <th>Empresa</th>
@@ -365,18 +370,12 @@
                             <div ng-show="optionsBoolean[0] || optionsBoolean[1] || optionsBoolean[2] || optionsBoolean[3]">
                                 <button class="btn btn-primary" ng-click="save(selecionado)">Salvar</button>
                                 <button class="btn btn-danger" ng-click="remove(selecionado)">Deletar</button>
-                                <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Gerar Relatório
-                                        <span class="caret"></span></button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#" ng-click="exportType('xls')">Excel 97 - 2003</a></li>
-                                        <li><a href="#" ng-click="exportType('xlsx')">Excel</a></li>
-                                        <li><a href="#" ng-click="exportType('pdf')">PDF</a></li>
-                                    </ul>
-                                </div>
+                                <button class="btn btn-info" ng-click="exportType('xls')" type="button">Gerar Relatório</button>
                             </div><br><br><br>
                         </div>
-
+                        <div class="dropdown" ng-hide="optionsBoolean[0] || optionsBoolean[1] || optionsBoolean[2] || optionsBoolean[3]">
+                            <button class="btn btn-info" ng-click="exportType('xls')" type="button">Gerar Relatório</button>
+                        </div>
                     </form>
                 </div>
             </div>

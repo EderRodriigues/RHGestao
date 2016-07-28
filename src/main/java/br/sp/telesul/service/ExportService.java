@@ -6,6 +6,8 @@
 package br.sp.telesul.service;
 
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ExportService {
 
-    public void generateReport(String formatType);
-    public void buildExcelDocument(String type, List<String>columns, List<String>columnsFormacao,List<String>columnsIdiomas,List<String>columnsCertificacoes);
+    
+    public void buildExcelDocument(String type, List<String>columns, List<String>columnsFormacao,List<String>columnsIdiomas,List<String>columnsCertificacoes, HttpServletRequest request, HttpServletResponse response);
 
 }

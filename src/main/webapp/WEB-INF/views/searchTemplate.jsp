@@ -18,7 +18,7 @@
            
             <div class="col-xs-12 table-responsive">
                 <table class="table table-hover">
-                    <thead>
+                    <thead class="headEmployee">
                         <tr>
                             <th>Selecionar</th>
                             <th>Nome</th>

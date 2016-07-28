@@ -6,7 +6,7 @@
 
 
 var app = angular.module("rhApp");
-app.controller("atualizarFuncionario", function ($scope, crudService, crudCertificacoesService, $uibModal, broadCastService, exportService) {
+app.controller("atualizarFuncionario", function ($scope, crudService, $uibModal, broadCastService, exportService) {
     $scope.funcionarios;
     $scope.selecionado;
     $scope.languages = ["Português", "Inglês", "Espanhol", "Frânces", "Alemão", "Italiano", "Grego", "Russo", "Indi", "Japônes", "Chinês", "Mandarim", "Hebraíco"];
@@ -163,6 +163,8 @@ app.controller("atualizarFuncionario", function ($scope, crudService, crudCertif
     
     $scope.exportType = function (type){
         exportService.exportType(type,columns);
-      
+        window.open("export/exportFile" + "/" + type + "/" + columns);
+        
+        
     };
 });

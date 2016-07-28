@@ -5,10 +5,12 @@
  */
 package br.sp.telesul.controller;
 
-import br.sp.telesul.generators.ExcelReport;
+
 import br.sp.telesul.service.ExportService;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -31,8 +33,8 @@ public class ExportController {
     @Autowired
     @Qualifier(value = "exportService")
     private ExportService exs;
-    @RequestMapping(value="exportFile/{type}/{columns}",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody HttpStatus exportFile(@PathVariable String type, @PathVariable List<String> columns){
+    @RequestMapping(value="exportFile/{type}/{columns}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void exportFile(@PathVariable String type, @PathVariable List<String> columns, HttpServletRequest request, HttpServletResponse response){
         List<String> columnsFormacao = new ArrayList<>();
         columnsFormacao.add("Nome");
         columnsFormacao.add("Curso");
@@ -52,9 +54,7 @@ public class ExportController {
         columnsCertificacoes.add("Data de Exame");
         columnsCertificacoes.add("Data de Validade");
         columnsCertificacoes.add("Cópia de Certificado");
-       exs.buildExcelDocument(type, columns,columnsFormacao,columnsIdiomas,columnsCertificacoes);
+       exs.buildExcelDocument(type, columns,columnsFormacao,columnsIdiomas,columnsCertificacoes, request, response);
        
-       HttpStatus hs = HttpStatus.OK;
-       return hs;
     } 
 }
