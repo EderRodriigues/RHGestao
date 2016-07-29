@@ -22,9 +22,11 @@ import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -52,10 +54,10 @@ public class ExportServiceImpl implements ExportService {
     @Override
     public void buildExcelDocument(String type, List<String> columns, List<String> columnsFormacao, List<String> columnsIdiomas, List<String> columnsCertificacoes, HttpServletRequest request, HttpServletResponse response) {
         HSSFWorkbook workbook = new HSSFWorkbook();
-        writeExcel("Funcionarios", columns,workbook);
-        writeExcelFormacao("Formações", columnsFormacao,workbook);
-        writeExcelIdiomas("Idiomas", columnsIdiomas,workbook);
-        writeExcelCertificacoes("Certificações", columnsCertificacoes,workbook);
+        writeExcel("Funcionarios", columns, workbook);
+        writeExcelFormacao("Formações", columnsFormacao, workbook);
+        writeExcelIdiomas("Idiomas", columnsIdiomas, workbook);
+        writeExcelCertificacoes("Certificações", columnsCertificacoes, workbook);
 
         downloadExcel(request, response, workbook);
     }
@@ -79,6 +81,8 @@ public class ExportServiceImpl implements ExportService {
                 font.setFontHeightInPoints((short) 11);
                 stylerowHeading.setFont(font);
                 stylerowHeading.setVerticalAlignment(CellStyle.ALIGN_CENTER);
+                stylerowHeading.setFillForegroundColor(HSSFColor.ROYAL_BLUE.index);
+                stylerowHeading.setFillPattern(CellStyle.SOLID_FOREGROUND);
                 rowHeading.getCell(i).setCellStyle(stylerowHeading);
             }
 
@@ -117,7 +121,7 @@ public class ExportServiceImpl implements ExportService {
         }
     }
 
-    public void writeExcelFormacao(String templateHead, List<String> columns,HSSFWorkbook workbook) {
+    public void writeExcelFormacao(String templateHead, List<String> columns, HSSFWorkbook workbook) {
         try {
             List<Funcionario> funcionarios = funcionarioService.search();
 
@@ -136,6 +140,8 @@ public class ExportServiceImpl implements ExportService {
                 font.setFontHeightInPoints((short) 11);
                 stylerowHeading.setFont(font);
                 stylerowHeading.setVerticalAlignment(CellStyle.ALIGN_CENTER);
+                stylerowHeading.setFillForegroundColor(HSSFColor.ROYAL_BLUE.index);
+                stylerowHeading.setFillPattern(CellStyle.SOLID_FOREGROUND);
                 rowHeading.getCell(i).setCellStyle(stylerowHeading);
             }
             //Preencher linhas
@@ -174,7 +180,7 @@ public class ExportServiceImpl implements ExportService {
         }
     }
 
-    public void writeExcelCertificacoes(String templateHead, List<String> columns,HSSFWorkbook workbook) {
+    public void writeExcelCertificacoes(String templateHead, List<String> columns, HSSFWorkbook workbook) {
         try {
             List<Funcionario> funcionarios = funcionarioService.search();
 
@@ -193,6 +199,8 @@ public class ExportServiceImpl implements ExportService {
                 font.setFontHeightInPoints((short) 11);
                 stylerowHeading.setFont(font);
                 stylerowHeading.setVerticalAlignment(CellStyle.ALIGN_CENTER);
+                stylerowHeading.setFillForegroundColor(HSSFColor.ROYAL_BLUE.index);
+                stylerowHeading.setFillPattern(CellStyle.SOLID_FOREGROUND);
                 rowHeading.getCell(i).setCellStyle(stylerowHeading);
             }
             //Preencher linhas
@@ -247,7 +255,7 @@ public class ExportServiceImpl implements ExportService {
         }
     }
 
-    public void writeExcelIdiomas(String templateHead, List<String> columns,HSSFWorkbook workbook) {
+    public void writeExcelIdiomas(String templateHead, List<String> columns, HSSFWorkbook workbook) {
         try {
             List<Funcionario> funcionarios = funcionarioService.search();
 
@@ -266,6 +274,8 @@ public class ExportServiceImpl implements ExportService {
                 font.setFontHeightInPoints((short) 11);
                 stylerowHeading.setFont(font);
                 stylerowHeading.setVerticalAlignment(CellStyle.ALIGN_CENTER);
+                stylerowHeading.setFillForegroundColor(HSSFColor.ROYAL_BLUE.index);
+                stylerowHeading.setFillPattern(CellStyle.SOLID_FOREGROUND);
                 rowHeading.getCell(i).setCellStyle(stylerowHeading);
             }
             //Preencher linhas
