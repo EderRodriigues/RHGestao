@@ -33,7 +33,6 @@ app.controller("atualizarFuncionario", function ($scope, crudService, $uibModal,
         $scope.optionsBoolean[option] = true;
     };
     $scope.selectCopiaFormacao = function (copia) {
-//        $scope.funcionario.formacoes.copiaCertificado = copia;
         $scope.newFormacoes.copiaCertificado = copia;
         console.log($scope.newFormacoes.copiaCertificado);
         console.log($scope.newFormacoes);

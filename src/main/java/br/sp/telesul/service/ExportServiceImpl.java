@@ -17,6 +17,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import jdk.nashorn.internal.runtime.Undefined;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -39,7 +40,6 @@ public class ExportServiceImpl implements ExportService {
     @Autowired
     @Qualifier(value = "funcionarioService")
     private FuncionarioService funcionarioService;
-    private final HSSFWorkbook workbook = new HSSFWorkbook();
 
     public FuncionarioService getFuncionarioService() {
         return funcionarioService;
@@ -50,19 +50,19 @@ public class ExportServiceImpl implements ExportService {
     }
 
     @Override
-    public void buildExcelDocument(String type, List<String> columns, List<String> columnsFormacao, List<String> columnsIdiomas, List<String> columnsCertificacoes,HttpServletRequest request, HttpServletResponse response) {
+    public void buildExcelDocument(String type, List<String> columns, List<String> columnsFormacao, List<String> columnsIdiomas, List<String> columnsCertificacoes, HttpServletRequest request, HttpServletResponse response) {
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        writeExcel("Funcionarios", columns,workbook);
+        writeExcelFormacao("Formações", columnsFormacao,workbook);
+        writeExcelIdiomas("Idiomas", columnsIdiomas,workbook);
+        writeExcelCertificacoes("Certificações", columnsCertificacoes,workbook);
 
-        writeExcel("Funcionarios", columns);
-        writeExcelFormacao("Formações", columnsFormacao);
-        writeExcelIdiomas("Idiomas", columnsIdiomas);
-        writeExcelCertificacoes("Certificações", columnsCertificacoes);
         downloadExcel(request, response, workbook);
     }
 
-    public void writeExcel(String templateHead, List<String> columns) {
+    public void writeExcel(String templateHead, List<String> columns, HSSFWorkbook workbook) {
         try {
             List<Funcionario> funcionarios = funcionarioService.search();
-
 
             HSSFSheet sheet = workbook.createSheet(templateHead);
 
@@ -113,11 +113,11 @@ public class ExportServiceImpl implements ExportService {
             }
 
         } catch (Exception e) {
-            System.out.println("Error"+e);
+            System.out.println("Error" + e);
         }
     }
 
-    public void writeExcelFormacao(String templateHead, List<String> columns) {
+    public void writeExcelFormacao(String templateHead, List<String> columns,HSSFWorkbook workbook) {
         try {
             List<Funcionario> funcionarios = funcionarioService.search();
 
@@ -170,11 +170,11 @@ public class ExportServiceImpl implements ExportService {
             }
 
         } catch (Exception e) {
-            System.out.println("Error "+e);
+            System.out.println("Error " + e);
         }
     }
 
-    public void writeExcelCertificacoes(String templateHead, List<String> columns) {
+    public void writeExcelCertificacoes(String templateHead, List<String> columns,HSSFWorkbook workbook) {
         try {
             List<Funcionario> funcionarios = funcionarioService.search();
 
@@ -243,11 +243,11 @@ public class ExportServiceImpl implements ExportService {
 //            workbook.close();
 //            System.out.println("Excell write succesfully");
         } catch (Exception e) {
-            System.out.println("Error"+e);
+            System.out.println("Error" + e);
         }
     }
 
-    public void writeExcelIdiomas(String templateHead, List<String> columns) {
+    public void writeExcelIdiomas(String templateHead, List<String> columns,HSSFWorkbook workbook) {
         try {
             List<Funcionario> funcionarios = funcionarioService.search();
 
@@ -296,13 +296,13 @@ public class ExportServiceImpl implements ExportService {
             }
 
         } catch (Exception e) {
-            System.out.println("Error"+e);
+            System.out.println("Error" + e);
         }
     }
-    
+
     public void downloadExcel(HttpServletRequest request, HttpServletResponse response, HSSFWorkbook wb) {
         ServletOutputStream stream = null;
-        String fileName = "relatorio"+ " "+new Date().getTime();
+        String fileName = "relatorio" + " " + new Date().getTime();
         fileName = fileName.replace(" ", "_");
         try {
             stream = response.getOutputStream();
@@ -311,16 +311,16 @@ public class ExportServiceImpl implements ExportService {
             wb.write(stream);
             System.out.println("Excel saved!!!!!");
         } catch (Exception e) {
-            System.out.println("Error write excel"+e);
+            System.out.println("Error write excel" + e);
         } finally {
-            if(stream != null){
-                try{
+            if (stream != null) {
+                try {
                     stream.close();
                     wb.close();
-                }catch(IOException io){
-                    System.out.println("Error close Steram"+io);
+                } catch (IOException io) {
+                    System.out.println("Error close Steram" + io);
                 }
-                
+
             }
         }
 
