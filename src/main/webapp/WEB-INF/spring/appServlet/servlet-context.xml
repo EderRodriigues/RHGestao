@@ -62,9 +62,7 @@
     <beans:bean id="funcionarioDAO" class="br.sp.telesul.dao.FuncionarioDAOImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
-    <beans:bean id="certificacaoDAO" class="br.sp.telesul.dao.CertificacaoDAOImpl">
-        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </beans:bean>
+  
     
     <beans:bean id="funcionarioService" class="br.sp.telesul.service.FuncionarioServiceImpl">
         <beans:property name="funcionarioDAO" ref="funcionarioDAO"></beans:property>

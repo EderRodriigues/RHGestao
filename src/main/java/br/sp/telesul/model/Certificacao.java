@@ -33,7 +33,7 @@ public class Certificacao implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idCertificacao;
     @Column
-    private int codigo;
+    private String codigo;
     @Column(name = "nome")
     private String nome;
     @Column(name = "empresa")
@@ -74,11 +74,11 @@ public class Certificacao implements Serializable {
         this.idCertificacao = idCertificacao;
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 

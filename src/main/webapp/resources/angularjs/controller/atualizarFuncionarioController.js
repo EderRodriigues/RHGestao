@@ -19,6 +19,7 @@ app.controller("atualizarFuncionario", function ($scope, crudService, $uibModal,
     $scope.indexColor;
     $scope.applyClass = function (option, index) {
         $scope.indexColor = index;
+        $scope.selecionado.checked = false;
     };
     $scope.buscar = function (nome) {
         console.log(nome);
@@ -38,17 +39,17 @@ app.controller("atualizarFuncionario", function ($scope, crudService, $uibModal,
         console.log($scope.newFormacoes);
 
     };
-    $scope.isEmployeeSelected = function (employee,index) {
+    $scope.isEmployeeSelected = function (employee, index) {
         $("#loader").show();
         console.log("employee");
         console.log(employee);
-        $scope.indexEmployee = index;
+       
         $scope.selecionado = employee;
         $("#loader").hide();
     };
     $scope.save = function (select) {
         console.log(select);
-        
+
         if (validation(select)) {
             crudService.save(select);
             broadCastService.broadCastAlertSuccess("Alterado com sucesso");
@@ -125,8 +126,7 @@ app.controller("atualizarFuncionario", function ($scope, crudService, $uibModal,
     }
     $scope.saveRow = function () {
         $scope.selecionado.checked = !$scope.selecionado.checked;
-//        $scope.funcionario.formacoes[index] = editCertificacao;
-//        $scope.newFormacoes = [];
+
         console.log($scope.selecionado);
     };
     $scope.addRow = function (novaInformacao, template) {
@@ -158,13 +158,22 @@ app.controller("atualizarFuncionario", function ($scope, crudService, $uibModal,
         }
 
     };
-    
-    var columns = ["Nome","Cargo","Data de Admissao","Área","Gestor"];
-    
-    $scope.exportType = function (type){
-        exportService.exportType(type,columns);
+
+    var columns = ["Nome", "Cargo", "Data de Admissao", "Área", "Gestor"];
+
+    $scope.exportType = function (type) {
+        exportService.exportType(type, columns);
         window.open("export/exportFile" + "/" + type + "/" + columns);
-        
-        
+
+
+    };
+    $scope.cancelRow = function (information) {
+        if (information === "formacao") {
+            $scope.newFormacoes = [];
+        } else if (information === "certificacao") {
+            $scope.newCertificacoes = [];
+        } else if (information === "idiomas") {
+            $scope.novoIdioma = [];
+        }
     };
 });

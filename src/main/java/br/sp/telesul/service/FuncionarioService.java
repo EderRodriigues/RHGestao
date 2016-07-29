@@ -15,17 +15,13 @@ import java.util.List;
  */
 public interface FuncionarioService {
 
-    public void salve(Funcionario funcionario);
+    public void save(Funcionario funcionario);
 
-    public void change(Funcionario funcionario);
+    public void update(Funcionario funcionario);
 
     public void delete(Funcionario funcionario);
 
     public List<Funcionario> search();
 
     public FilterReturn searchPage(int pageNumber, int pageSize, String filter);
-
-    public Funcionario searchById(Long id);
-    
-    public List<Funcionario> buscarFuncionariosPorNome(String name);
 }

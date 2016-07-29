@@ -8,17 +8,17 @@
     <body>
         <div class="row">
             <div class="col-xs-4">
-                <label for="search">Search:</label>
-                <input ng-model="q2" id="search" class="form-control" placeholder="Filter text">
+                <label for="search">Buscar:</label>
+                <input ng-model="q2" id="search" class="form-control" placeholder="Buscar Nome">
             </div>
             <div class="col-xs-4">
-                <label for="search">items por página:</label>
-                <input type="number" min="1" max="10" class="form-control" ng-model="tamanhoPagina">
+                <label for="search">Itens Por Página:</label>
+                <input type="number" min="1" max="15" class="form-control" ng-model="tamanhoPagina">
             </div>
            
             <div class="col-xs-12 table-responsive">
                 <table class="table table-hover">
-                    <thead class="headEmployee">
+                    <thead class="headerTable">
                         <tr>
                             <th>Selecionar</th>
                             <th>Nome</th>
@@ -31,7 +31,7 @@
                             dir-paginate="employee in employees| filter:filtro | itemsPerPage: tamanhoPagina" 
                             total-items="total2" current-page="atualPagina" pagination-id="entityPagination2">
                             <td>
-                                <input name="choosenEntity" type="radio" ng-checked="indexEmployee === $index">
+                                <input name="choosenEntity" type="radio" ng-checked="employee.nome === selecionado.nome">
                             </td>
                             <td>
                                 {{employee.nome}}

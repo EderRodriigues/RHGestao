@@ -10,19 +10,20 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>RH Gestão</title>
+        <link rel="shortcut icon" href="resources/imgs/Telesul.png" type="image/x-icon"/>
         <script src="resources/jquery/jquery-2.1.4.js" type="text/javascript"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
         <script src="<c:url value="resources/angularjs/external/angular.js"/>" type="text/javascript"></script>
         <script src="resources/angularjs/module/module.js" type="text/javascript"></script>
         <script src="resources/angularjs/controller/atualizarFuncionarioController.js" type="text/javascript"></script>
-        
+
         <script src="resources/angularjs/controller/alertController.js" type="text/javascript"></script>
         <script src="resources/angularjs/external/ui-bootstrap-tpls-1.3.3.js" type="text/javascript"></script>
         <script src="resources/bootstrap/js/bootstrap.js" type="text/javascript"></script>
 
         <script src="resources/angularjs/services/restService.js" type="text/javascript"></script>
         <script src="resources/angularjs/services/crudService.js" type="text/javascript"></script>
-       
+
         <script src="resources/angularjs/services/broadCastService.js" type="text/javascript"></script>
         <script src="resources/angularjs/services/exportService.js" type="text/javascript"></script>
         <script src="resources/js/datepicker/datepicker.js" type="text/javascript"></script>
@@ -34,41 +35,9 @@
         <link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="resources/css/estilo.css" rel="stylesheet" type="text/css"/>
         <style>
-            /*body{
-                background-image: url("resources/imgs/blue-light.jpg");
-                background-repeat: no-repeat; 
-                background-size: 1920px;
-            }*/
             body{
                 background-image: url("resources/imgs/fabric-of-squares.png");
                 background-repeat: repeat; 
-
-
-            }
-            #dtNasc{
-                width: 30%;
-            }
-            .form-control{
-
-            }
-            #add{
-                top: 10px;
-                left: 30px;
-            }
-            #loader{
-                z-index: 1;
-                margin-top: -50px;
-                margin-left: 650px;
-                height: 40px;
-                width: 40%;
-            }
-            img{
-                height: 100px;
-                width: 100px;
-            }
-            #reports{
-                left: 146px;
-                top: -39px;
             }
         </style>
     </head>
@@ -76,7 +45,7 @@
         <nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index"><img id="img" src="resources/imgs/Telesul.png"></a>
+                    <a class="navbar-brand" href="index"><img id="banner" src="resources/imgs/Telesul.png"></a>
                 </div>
                 <ul class="nav navbar-nav">
 
@@ -88,23 +57,13 @@
                             <li><a class="op" href="atualizarFuncionario">Atualizar</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Certificações
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="op" href="cadastrarCertificacao">Cadastrar</a></li>
-                            <li><a class="op" href="atualizarCertificacao">Atualizar</a></li>
-
-                        </ul>
-                    </li>
-
                 </ul>
             </div>
         </nav>
         <section class="container">
             <div ng-controller="alertController" id="allalerts">
-                <uib-alert id="msgSuccess" ng-show="alert.type === 'success'"  ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
-                <uib-alert id="msgError" ng-show="alert.type === 'danger'"  ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+                <uib-alert class="alert-success" ng-show="alert.type === 'success'"  ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+                <uib-alert class="alert-danger" ng-show="alert.type === 'danger'"  ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -120,7 +79,7 @@
                             </ul>
                             <div ng-show="optionsBoolean[0]">
                                 <table class="table table-condensed table-hover">
-                                    <thead class="headEmployee">
+                                    <thead class="headerTable">
                                         <tr>
                                             <th>ID</th>
                                             <th>Nome</th>
@@ -148,14 +107,14 @@
                                                 </div>
                                             </td>
                                             <td><input class="form-control" ng-model="selecionado.gestor"/></td>
-                                            <!--<th><a href="#" ng-click="addCertificados('lg', selecionado.certificacoes)"><span id="add" class="glyphicon glyphicon-plus"></span></a></th>-->
+
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div ng-show="optionsBoolean[1]">
                                 <table class="table table-hover table-condensed">
-                                    <thead class="headEmployee">
+                                    <thead class="headerTable">
                                     <th>Nivel</th>
                                     <th>Nome</th>
                                     <th>Instituicao</th>
@@ -167,7 +126,15 @@
                                         <tr ng-repeat="formacao in selecionado.formacoes">
                                             <td>
                                                 <input type="text" class="form-control" readonly="true" ng-model="formacao.nivel" ng-hide="selecionado.checked">
-                                                <input type="text" class="form-control" ng-model="formacao.nivel" ng-show="selecionado.checked">
+                                                
+                                                <select class="form-control" ng-model="formacao.nivel" ng-show="selecionado.checked">
+                                                    <option>Técnico</option>
+                                                    <option>Superior Incompleto</option>
+                                                    <option>Superior Completo</option>
+                                                    <option>Pós Graduado</option>
+                                                    <option>Mestrado</option>
+                                                    <option>Doutorado</option>
+                                                </select>
 
                                             </td>
                                             <td>
@@ -181,18 +148,30 @@
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control" readonly="true" ng-model="formacao.copiaCertificado" ng-hide="selecionado.checked">
-                                                <input type="text" class="form-control" ng-model="formacao.copiaCertificado" ng-show="selecionado.checked">
+
+                                                <select class="form-control" ng-model="formacao.copiaCertificado" ng-show="selecionado.checked">
+                                                    <option>Sim</option>
+                                                    <option>Não</option>
+                                                </select>
 
                                             </td>
                                             <td>
-                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow()" ng-hide="selecionado.checked">Edit</button>
-                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow()" ng-show="selecionado.checked">Save</button>
-                                                <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'formacao')">Remove</button>
+                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow()" ng-hide="selecionado.checked">Editar</button>
+                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow()" ng-show="selecionado.checked">Salvar</button>
+                                                <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'formacao')">Remover</button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="text" class="form-control" ng-model="newFormacoes.nivel">
+
+                                                <select class="form-control" ng-model="newFormacoes.nivel">
+                                                    <option>Técnico</option>
+                                                    <option>Superior Incompleto</option>
+                                                    <option>Superior Completo</option>
+                                                    <option>Pós Graduado</option>
+                                                    <option>Mestrado</option>
+                                                    <option>Doutorado</option>
+                                                </select>
 
                                             </td>
                                             <td>
@@ -203,12 +182,14 @@
                                                 <input type="text" class="form-control" ng-model="newFormacoes.instituicao">
                                             </td>
                                             <td>
-                                                <label class="radio-inline"><input type="radio" name="optradio" ng-click="selectCopiaFormacao('Sim')">Sim</label>
-                                                <label class="radio-inline"><input type="radio" name="optradio" ng-click="selectCopiaFormacao('Não')">Não</label>
+                                                <select class="form-control" ng-model="newFormacoes.copiaCertificado">
+                                                    <option>Sim</option>
+                                                    <option>Não</option>
+                                                </select>
                                             </td>
                                             <td>
                                                 <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="addRow(newFormacoes, 'formacao')">Adicionar</button>
-                                                <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow()">Cancel</button>
+                                                <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="cancelRow('formacao')">Cancelar</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -216,7 +197,7 @@
                             </div>
                             <div ng-show="optionsBoolean[2]">
                                 <table class="table table-condensed table-hover">
-                                    <thead class="headEmployee">
+                                    <thead class="headerTable">
                                     <th>Idioma</th>
                                     <th>Nível</th>                                        
                                     <th></th>                                        
@@ -239,9 +220,9 @@
                                             </td>
 
                                             <td>
-                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow()" ng-hide="selecionado.checked">Edit</button>
-                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow(formacao)" ng-show="selecionado.checked">Save</button>
-                                                <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'idioma')">Remove</button>
+                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow()" ng-hide="selecionado.checked">Editar</button>
+                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow(formacao)" ng-show="selecionado.checked">Salvar</button>
+                                                <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'idioma')">Remover</button>
                                             </td>
                                         </tr>
                                         <tr>
@@ -258,7 +239,7 @@
                                             </td>
                                             <td>
                                                 <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="addRow(novoIdioma, 'idioma')">Adicionar</button>
-                                                <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow()">Cancel</button>
+                                                <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="cancelRow('idiomas')">Cancelar</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -266,10 +247,10 @@
                             </div>
                             <div ng-show="optionsBoolean[3]">
                                 <table class="table table-condensed table-hover">
-                                    <thead class="headEmployee">
+                                    <thead class="headerTable">
                                     <th>Codigo</th>
-                                    <th>Curso</th>
-                                    <th>Empresa</th>
+                                    <th>Exame</th>
+                                    <th>Certificadora</th>
                                     <th>Data de Exame</th>
                                     <th>Data de Validade</th>
                                     <th>Copia de Certificação</th>
@@ -311,15 +292,18 @@
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control sizeInput" readonly="true" ng-model="certificacao.copia" ng-hide="selecionado.checked">
-                                                <input type="text" class="form-control sizeInput" ng-model="certificacao.copia" ng-show="selecionado.checked">
 
+                                                <select class="form-control" ng-model="certificacao.copia" ng-show="selecionado.checked" ng-show="selecionado.checked">
+                                                    <option>Sim</option>
+                                                    <option>Não</option>
+                                                </select>
                                             </td>
                                             <td>
-                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow()" ng-show="funcionario.checked">Save</button>
-                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow()" ng-hide="funcionario.checked">Editar</button>
+                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow()" ng-show="selecionado.checked">Salvar</button>
+                                                <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow()" ng-hide="selecionado.checked">Editar</button>
                                             </td>
                                             <td>
-                                                <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'certificacao')">Remove</button>
+                                                <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'certificacao')">Remover</button>
                                             </td>
                                         </tr>
                                         <tr>
@@ -358,9 +342,10 @@
                                             </td>
                                             <td>
                                                 <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="addRow(newCertificacoes, 'certificacao')">Adicionar</button>
+                                                
                                             </td>
                                             <td>
-
+                                                <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="cancelRow('certificacao')">Cancelar</button>
                                             </td>
 
                                         </tr>
@@ -374,6 +359,7 @@
                             </div><br><br><br>
                         </div>
                         <div class="dropdown" ng-hide="optionsBoolean[0] || optionsBoolean[1] || optionsBoolean[2] || optionsBoolean[3]">
+                            <button class="btn btn-danger" ng-click="remove(selecionado)" ng-show="selecionado">Deletar</button>
                             <button class="btn btn-info" ng-click="exportType('xls')" type="button">Gerar Relatório</button>
                         </div>
                     </form>
@@ -381,7 +367,7 @@
             </div>
         </section>
         <div id="loader">
-            <img src="resources/imgs/loader4.gif" class="ajax-loader"/>
+            <img class="gifLoader" src="resources/imgs/loader4.gif" class="ajax-loader"/>
         </div>
     </body>
 </html>

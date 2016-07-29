@@ -11,6 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>RH Gestão</title>
+        <link rel="shortcut icon" href="resources/imgs/Telesul.png" type="image/x-icon"/>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>  
         <script src="<c:url value="/resources/angularjs/external/angular.min.js"/>" type="text/javascript"></script>
         <script src="resources/bootstrap/js/bootstrap.js" type="text/javascript"></script>
@@ -20,16 +21,14 @@
     <style>
         body{
             background-image: url("resources/imgs/fabric-of-squares.png");
-            background-repeat: repeat; 
-
-
+            background-repeat: repeat;
         }
     </style>
     <body>
         <nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#"><img id="img" src="resources/imgs/Telesul.png"></a>
+                    <a class="navbar-brand" href="index"><img id="banner" src="resources/imgs/Telesul.png"></a>
                 </div>
                 <ul class="nav navbar-nav">
 
@@ -45,9 +44,6 @@
             </div>
         </nav>
         <section>
-            <!--<img id="home" src="resources/imgs/Telesul.png"/>-->
-
-
         </section>
     </body>
 </html>

@@ -13,12 +13,23 @@ body{
     background-repeat: repeat; 
 }
 
-#img{
+#banner{
     position: relative;
     top: -8px;
     right: 100px;
     height: 50px;
     width: 120px;
+}
+#loader{
+    z-index: 1;
+    margin-top: -50px;
+    margin-left: 650px;
+    height: 40px;
+    width: 40%;
+}
+.gifLoader{
+    height: 100px;
+    width: 100px;
 }
 nav{
     height: 60px;
@@ -28,10 +39,7 @@ nav{
 }
 
 .panel{
-
-
     width: 100%;
-
 }
 .form-control{
     width: 100%;
@@ -46,18 +54,18 @@ nav{
     color: black;
     border-radius: 5px;
 }
-#radio2{
-    position: relative;
-    right: 10px;
-}
+
 .sizeInput{
     width: 150px;
+}
+#dtNasc{
+    width: 30%;
 }
 .table-hover tbody tr:hover td{
     /*    background: #bce8f1;*/
     background: #9acfea;
 }
-.headEmployee{
+.headerTable{
     background: #428bca;
     color: white;
 }
@@ -100,9 +108,9 @@ nav{
     border-bottom-color: transparent;
 } 
 .panel-default > .panel-heading{
-  background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 92%,rgba(237,237,237,1) 100%);
-  background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 92%,rgba(237,237,237,1) 100%);
-  background: linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 92%,rgba(237,237,237,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 92%,rgba(237,237,237,1) 100%);
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 92%,rgba(237,237,237,1) 100%);
+    background: linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 92%,rgba(237,237,237,1) 100%);
 }
 .panel-default > .panel-body{
     background: #ffffff

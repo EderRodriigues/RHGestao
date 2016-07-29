@@ -47,7 +47,9 @@ app.directive("search", function (crudService) {
             };
 
             $scope.$watch('q2',function (novoFiltro){
-                searchForPagination(atualPagina,tamanhoPagina,novoFiltro);
+                if($scope.q2.length>2){
+                 searchForPagination(atualPagina,tamanhoPagina,novoFiltro);   
+                }
             });
             function successOnSearch(data) {
                 console.log(data);

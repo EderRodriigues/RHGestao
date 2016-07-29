@@ -31,14 +31,14 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     @Override
     @Transactional
-    public void salve(Funcionario funcionario) {
+    public void save(Funcionario funcionario) {
         this.funcionarioDAO.save(funcionario);
     }
 
     @Override
     @Transactional
-    public void change(Funcionario funcionario) {
-        this.funcionarioDAO.change(funcionario);
+    public void update(Funcionario funcionario) {
+        this.funcionarioDAO.update(funcionario);
     }
 
     @Override
@@ -51,18 +51,6 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     @Transactional
     public List<Funcionario> search() {
         return this.funcionarioDAO.search();
-    }
-
-    @Override
-    @Transactional
-    public Funcionario searchById(Long id) {
-        return this.funcionarioDAO.searchById(id);
-    }
-
-    @Override
-    @Transactional
-    public List<Funcionario> buscarFuncionariosPorNome(String name) {
-        return this.funcionarioDAO.listLikeProdutos(name);
     }
 
     @Override

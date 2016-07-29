@@ -10,20 +10,21 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>RH Gestão</title>
+        <link rel="shortcut icon" href="resources/imgs/Telesul.png" type="image/x-icon"/>
         <script src="resources/jquery/jquery-2.1.4.js" type="text/javascript"></script>
 
         <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
         <script src="<c:url value="resources/angularjs/external/angular.js"/>" type="text/javascript"></script>
         <script src="<c:url value="resources/angularjs/module/module.js"/>" type="text/javascript"></script>
         <script src="<c:url value="/resources/angularjs/controller/cadastrarFuncionarioController.js"/>" type="text/javascript"></script>
-        
+
         <script src="resources/angularjs/controller/alertController.js" type="text/javascript"></script>
         <script src="resources/bootstrap/js/bootstrap.js" type="text/javascript"></script>
         <script src="resources/angularjs/external/ui-bootstrap-tpls-1.3.3.js" type="text/javascript"></script>
 
         <script src="resources/angularjs/services/restService.js" type="text/javascript"></script>
         <script src="resources/angularjs/services/crudService.js" type="text/javascript"></script>
-        
+
         <script src="resources/angularjs/services/broadCastService.js" type="text/javascript"></script>
         <script src="resources/js/datepicker/datepicker.js" type="text/javascript"></script>
         <script src="resources/bootstrap/js/bootstrap-datepicker.pt-BR.js" type="text/javascript"></script>
@@ -35,9 +36,7 @@
         <style>
             body{
                 background-image: url("resources/imgs/fabric-of-squares.png");
-                background-repeat: repeat; 
-
-
+                background-repeat: repeat;
             }
         </style>
     </head>
@@ -45,7 +44,7 @@
         <nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index"><img id="img" src="resources/imgs/Telesul.png"></a>
+                    <a class="navbar-brand" href="index"><img id="banner" src="resources/imgs/Telesul.png"></a>
                 </div>
                 <ul class="nav navbar-nav">
 
@@ -57,26 +56,17 @@
                             <li><a class="op" href="atualizarFuncionario">Atualizar</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Certificações
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="op" href="cadastrarCertificacao">Cadastrar</a></li>
-                            <li><a class="op" href="atualizarCertificacao">Atualizar</a></li>
-                        </ul>
-                    </li>
-
                 </ul>
             </div>
         </nav>
 
         <section class="container">
             <div ng-controller="alertController" id="allalerts">
-                <uib-alert id="msgSuccess" ng-show="alert.type === 'success'"  ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
-                <uib-alert id="msgError" ng-show="alert.type === 'danger'"  ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+                <uib-alert class="alert-success" ng-show="alert.type === 'success'"  ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+                <uib-alert class="alert-danger" ng-show="alert.type === 'danger'"  ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
             </div>
             <ul class="nav nav-tabs">
-                <li id="tabs" ng-class="indexColor === $index ? 'active' : 'none'" ng-click="applyClass(op, $index)" ng-repeat="op in options"><a href="#" ng-click="ativarForm($index)">{{op}}</a></li>
+                <li id="tabs" ng-class="indexColor === $index ? 'active' : 'none'" ng-repeat="op in options"><a href="#" ng-click="ativarForm($index)" ng-click="applyClass(op, $index)">{{op}}</a></li>
             </ul>
             <div class="panel panel-default" ng-show="booleanForm">
 
@@ -107,7 +97,7 @@
                     <form class="form-group" ng-show="optionsBoolean[1]">
                         <div class="panel-body">
                             <table class="table table-condensed">
-                                <thead class="headEmployee">
+                                <thead class="headerTable">
                                     <tr>
                                         <th>Nível</th>
                                         <th>Curso</th>
@@ -120,7 +110,15 @@
                                     <tr ng-repeat="formacao in funcionario.formacoes">
                                         <td>
                                             <input type="text" class="form-control" readonly="true" ng-model="formacao.nivel" ng-hide="funcionario.checked">
-                                            <input type="text" class="form-control" ng-model="formacao.nivel" ng-show="funcionario.checked">
+
+                                            <select class="form-control" ng-model="formacao.nivel" ng-show="funcionario.checked">
+                                                <option>Técnico</option>
+                                                <option>Superior Incompleto</option>
+                                                <option>Superior Completo</option>
+                                                <option>Pós Graduado</option>
+                                                <option>Mestrado</option>
+                                                <option>Doutorado</option>
+                                            </select>
 
                                         </td>
                                         <td>
@@ -134,18 +132,28 @@
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" readonly="true" ng-model="formacao.copiaCertificado" ng-hide="funcionario.checked">
-                                            <input type="text" class="form-control" ng-model="formacao.copiaCertificado" ng-show="funcionario.checked">
+                                            <select class="form-control" ng-model="formacao.copiaCertificado" ng-show="funcionario.checked">
+                                                <option>Sim</option>
+                                                <option>Não</option>
+                                            </select>
 
                                         </td>
                                         <td>
-                                            <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow()" ng-hide="funcionario.checked">Edit</button>
-                                            <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow()" ng-show="funcionario.checked">Save</button>
-                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'formacao')">Remove</button>
+                                            <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow('formacao')" ng-hide="funcionario.checked">Editar</button>
+                                            <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow('formacao')" ng-show="funcionario.checked">Salvar</button>
+                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'formacao')">Remover</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <input type="text" class="form-control" ng-model="newFormacoes.nivel">
+                                            <select class="form-control" ng-model="newFormacoes.nivel">
+                                                <option>Técnico</option>
+                                                <option>Superior Incompleto</option>
+                                                <option>Superior Completo</option>
+                                                <option>Pós Graduado</option>
+                                                <option>Mestrado</option>
+                                                <option>Doutorado</option>
+                                            </select>
 
                                         </td>
                                         <td>
@@ -156,12 +164,14 @@
                                             <input type="text" class="form-control" ng-model="newFormacoes.instituicao">
                                         </td>
                                         <td>
-                                            <label class="radio-inline"><input type="radio" name="optradio" ng-click="selectCopiaFormacao('Sim')">Sim</label>
-                                            <label class="radio-inline"><input type="radio" name="optradio" ng-click="selectCopiaFormacao('Não')">Não</label>
+                                            <select class="form-control" ng-model="newFormacoes.copiaCertificado">
+                                                <option>Sim</option>
+                                                <option>Não</option>
+                                            </select>
                                         </td>
                                         <td>
                                             <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="addRow(newFormacoes, 'formacao')">Adicionar</button>
-                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow()">Cancel</button>
+                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="cancelRow('formacao')">Cancelar</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -172,7 +182,7 @@
 
                         <div class="panel-body">
                             <table class="table table-condensed">
-                                <thead class="headEmployee">
+                                <thead class="headerTable">
                                     <tr>
                                         <th>Idioma</th>
                                         <th>Nivel</th>
@@ -197,9 +207,9 @@
                                         </td>
 
                                         <td>
-                                            <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow()" ng-hide="funcionario.checked">Edit</button>
-                                            <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow(formacao)" ng-show="funcionario.checked">Save</button>
-                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'idioma')">Remove</button>
+                                            <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow()" ng-hide="funcionario.checked">Editar</button>
+                                            <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow(formacao)" ng-show="funcionario.checked">Salvar</button>
+                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'idioma')">Remover</button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -216,7 +226,7 @@
                                         </td>
                                         <td>
                                             <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="addRow(novoIdioma, 'idioma')">Adicionar</button>
-                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow()">Cancel</button>
+                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="cancelRow('idiomas')">Cancelar</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -226,7 +236,7 @@
                     <form class="form-group" ng-show="optionsBoolean[3]">
                         <div class="panel-body">
                             <table class="table table-condensed">
-                                <thead class="headEmployee">
+                                <thead class="headerTable">
                                     <tr>
                                         <th>Certificadora</th>
                                         <th>Exame</th>
@@ -273,15 +283,17 @@
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" readonly="true" ng-model="certificacao.copia" ng-hide="funcionario.checked">
-                                            <input type="text" class="form-control" ng-model="certificacao.copia" ng-show="funcionario.checked">
-
+                                            <select class="form-control" ng-model="certificacao.copia" ng-show="funcionario.checked">
+                                                <option>Sim</option>
+                                                <option>Não</option>
+                                            </select>
                                         </td>
                                         <td>
-                                            <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow()" ng-show="funcionario.checked">Save</button>
+                                            <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="saveRow()" ng-show="funcionario.checked">Salvar</button>
                                             <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="editRow()" ng-hide="funcionario.checked">Editar</button>
                                         </td>
                                         <td>
-                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'certificacao')">Remove</button>
+                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="removeRow($index, 'certificacao')">Remover</button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -311,13 +323,18 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <label class="radio-inline"><input type="radio" name="optradio" ng-click="selectCopiaCertificacao('Sim')">Sim</label>
-                                            <label class="radio-inline" id="radio2"><input type="radio" name="optradio" ng-click="selectCopiaCertificacao('Não')">Não</label>
+                                            <select class="form-control" ng-model="newCertificacoes.copia">
+                                                <option>Sim</option>
+                                                <option>Não</option>
+                                            </select>
                                         </td>
                                         <td>
                                             <button type="button"  class="btn btn-info" class="btn btn-block" ng-click="addRow(newCertificacoes, 'certificacao')">Adicionar</button>
+                                        
                                         </td>
-
+                                        <td>
+                                            <button type="button"  class="btn btn-warning" class="btn btn-block" ng-click="cancelRow('certificacao')">Cancelar</button>    
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

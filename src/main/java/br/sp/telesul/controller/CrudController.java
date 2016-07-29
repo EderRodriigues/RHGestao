@@ -46,9 +46,9 @@ public class CrudController {
     public @ResponseBody
     ResponseEntity<Funcionario> save(@RequestBody Funcionario funcionario) throws ParseException {
             if (funcionario.getIdFuncionario() > 0) {
-                this.funcionarioService.change(funcionario);
+                this.funcionarioService.update(funcionario);
             } else {
-                this.funcionarioService.salve(funcionario);
+                this.funcionarioService.save(funcionario);
             }
         
 
@@ -78,10 +78,4 @@ public class CrudController {
 
         return employees;
     }
-
-//    @RequestMapping(value = "searchByNome/{nome}")
-//    public @ResponseBody List<Funcionario> searchByNome(@PathVariable String nome){
-//        List<Funcionario> lista = this.funcionarioService.buscarFuncionariosPorNome(nome);
-//        return  lista;
-//    }
 }
