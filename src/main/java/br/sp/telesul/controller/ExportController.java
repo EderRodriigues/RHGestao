@@ -5,8 +5,9 @@
  */
 package br.sp.telesul.controller;
 
-
+import br.sp.telesul.model.Funcionario;
 import br.sp.telesul.service.ExportService;
+import br.sp.telesul.service.FuncionarioService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -30,11 +31,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "export")
 @Controller
 public class ExportController {
+
     @Autowired
     @Qualifier(value = "exportService")
     private ExportService exs;
-    @RequestMapping(value="exportFile/{type}/{columns}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void exportFile(@PathVariable String type, @PathVariable List<String> columns, HttpServletRequest request, HttpServletResponse response){
+
+    FuncionarioService funcionarioService;
+
+    @Autowired
+    @Qualifier(value = "funcionarioService")
+    public void setFuncionarioService(FuncionarioService funcionarioService) {
+        this.funcionarioService = funcionarioService;
+    }
+
+    @RequestMapping(value = "exportFile/{type}/{columns}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void exportFile(@PathVariable String type, @PathVariable List<String> columns, HttpServletRequest request, HttpServletResponse response) {
         List<String> columnsFormacao = new ArrayList<>();
         columnsFormacao.add("Nome");
         columnsFormacao.add("Curso");
@@ -50,11 +61,20 @@ public class ExportController {
         columnsCertificacoes.add("Código Exame");
         columnsCertificacoes.add("Certificado");
         columnsCertificacoes.add("Exame");
-        
+
         columnsCertificacoes.add("Data de Exame");
         columnsCertificacoes.add("Data de Validade");
         columnsCertificacoes.add("Cópia de Certificado");
-       exs.buildExcelDocument(type, columns,columnsFormacao,columnsIdiomas,columnsCertificacoes, request, response);
-       
-    } 
+        exs.buildExcelDocument(type, columns, columnsFormacao, columnsIdiomas, columnsCertificacoes, request, response);
+
+    }
+
+    @RequestMapping(value = "readExcel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    void readExcel() {
+        List<Funcionario> funcionarios = exs.readExcelDocument();
+        for (Funcionario f : funcionarios ) {
+            funcionarioService.save(f);
+        }
+    }
 }

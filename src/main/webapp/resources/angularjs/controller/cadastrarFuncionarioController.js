@@ -5,7 +5,7 @@
  */
 
 var app = angular.module("rhApp");
-app.controller("CadastrarFuncionario", function ($scope, crudService, $uibModal, broadCastService) {
+app.controller("CadastrarFuncionario", function ($scope, crudService, $uibModal, broadCastService,exportService) {
     $scope.funcionario = {};
     $scope.funcionario.formacoes = [];
     $scope.funcionario.idiomas = [];
@@ -127,5 +127,9 @@ app.controller("CadastrarFuncionario", function ($scope, crudService, $uibModal,
         } else if (information === "idiomas") {
             $scope.novoIdioma = [];
         }
+    };
+    
+    $scope.readExcel = function (){
+        exportService.readExcel();
     };
 });

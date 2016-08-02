@@ -71,4 +71,8 @@ public class IndexController {
     public ModelAndView exportTemplate(){
         return new ModelAndView("export");
     }
+    @RequestMapping(value="/saveBottomsTemplate")
+    public ModelAndView saveBottomsTemplateTemplate(){
+        return new ModelAndView("saveBottomsTemplate");
+    }
 }

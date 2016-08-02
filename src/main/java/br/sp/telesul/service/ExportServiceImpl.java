@@ -9,10 +9,16 @@ import br.sp.telesul.model.Certificacao;
 import br.sp.telesul.model.Formacao;
 import br.sp.telesul.model.Funcionario;
 import br.sp.telesul.model.Idioma;
+import br.sp.telesul.model.Language;
+import br.sp.telesul.model.Nivel;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -25,9 +31,13 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -151,20 +161,22 @@ public class ExportServiceImpl implements ExportService {
                 if (!f.getFormacoes().isEmpty()) {
 
                     for (Formacao fmc : f.getFormacoes()) {
-                        Row row = sheet.createRow(r);
+                        if (!fmc.getInstituicao().isEmpty() || !fmc.getCurso().isEmpty() || !fmc.getNivel().isEmpty()) {
+                            Row row = sheet.createRow(r);
 
-                        Cell Nome = row.createCell(0);
-                        Nome.setCellValue(f.getNome());
-                        Cell curso = row.createCell(1);
-                        curso.setCellValue(fmc.getCurso());
-                        Cell instituicao = row.createCell(2);
-                        instituicao.setCellValue(fmc.getInstituicao());
-                        Cell nivel = row.createCell(3);
-                        nivel.setCellValue(fmc.getNivel());
-                        Cell copia = row.createCell(4);
-                        copia.setCellValue(fmc.getCopiaCertificado());
+                            Cell Nome = row.createCell(0);
+                            Nome.setCellValue(f.getNome());
+                            Cell curso = row.createCell(1);
+                            curso.setCellValue(fmc.getCurso());
+                            Cell instituicao = row.createCell(2);
+                            instituicao.setCellValue(fmc.getInstituicao());
+                            Cell nivel = row.createCell(3);
+                            nivel.setCellValue(fmc.getNivel());
+                            Cell copia = row.createCell(4);
+                            copia.setCellValue(fmc.getCopiaCertificado());
 
-                        r++;
+                            r++;
+                        }
                     }
 
                 }
@@ -285,16 +297,24 @@ public class ExportServiceImpl implements ExportService {
                 if (!f.getIdiomas().isEmpty()) {
 
                     for (Idioma idm : f.getIdiomas()) {
-                        Row row = sheet.createRow(r);
-                        Cell Nome = row.createCell(0);
-                        Nome.setCellValue(f.getNome());
+                        try {
+                            if (idm.getNivel() != null || idm.getNome() != null) {
+                                Row row = sheet.createRow(r);
+                                Cell Nome = row.createCell(0);
+                                Nome.setCellValue(f.getNome());
 
-                        Cell language = row.createCell(1);
-                        language.setCellValue(idm.getNome().toString());
+                                Cell language = row.createCell(1);
+                                language.setCellValue(idm.getNome().toString());
 
-                        Cell nivel = row.createCell(2);
-                        nivel.setCellValue(idm.getNivel().toString());
-                        r++;
+                                Cell nivel = row.createCell(2);
+                                nivel.setCellValue(idm.getNivel().toString());
+                                r++;
+                            }
+                        } catch (NullPointerException ne) {
+                            System.out.println("Error "+ne);
+                            break;
+                        }
+
                     }
 
                 }
@@ -334,5 +354,132 @@ public class ExportServiceImpl implements ExportService {
             }
         }
 
+    }
+
+    @Override
+    public List<Funcionario> readExcelDocument() {
+        try {
+            List<Funcionario> funcionariosExcel = new ArrayList<>();
+            FileInputStream fl = new FileInputStream(new File("C:\\Matriz1.xlsx"));
+            Workbook wb = new XSSFWorkbook(fl);
+            Sheet firstSheet = wb.getSheetAt(0);
+            Iterator<Row> iterator = firstSheet.iterator();
+
+            while (iterator.hasNext()) {
+                Row nextRow = iterator.next();
+                int row = nextRow.getRowNum();
+                System.out.println("Row start" + row);
+                Iterator<Cell> cellIterator = nextRow.cellIterator();
+                Funcionario f = new Funcionario();
+                Formacao fm = new Formacao();
+                Idioma id = new Idioma();
+                int column = 0;
+                while (cellIterator.hasNext()) {
+                    Cell nextCell = cellIterator.next();
+                    int columnIndex = nextCell.getColumnIndex();
+                    column = columnIndex;
+                    System.out.println("Valor" + getCellValue(nextCell));
+                    System.out.println("Index: " + columnIndex);
+                    if (row > 0) {
+                        switch (columnIndex) {
+                            case 1:
+                                f.setArea((String) getCellValue(nextCell));
+                                break;
+                            case 2:
+                                Date dt = new Date();
+                                if (!getCellValue(nextCell).toString().isEmpty()) {
+                                    try {
+                                        dt = DateUtil.getJavaDate((Double) getCellValue(nextCell));
+                                    } catch (ClassCastException cce) {
+                                        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+
+                                        dt = formatter.parse((String) getCellValue((nextCell)));
+                                    };
+                                }
+
+                                f.setDtAdmissao(dt);
+                                break;
+                            case 3:
+                                f.setCargo((String) getCellValue(nextCell));
+                                break;
+                            case 4:
+                                f.setNome((String) getCellValue(nextCell));
+                                break;
+                            case 5:
+                                f.setGestor((String) getCellValue(nextCell));
+                                break;
+                            case 9:
+                                fm.setNivel((String) getCellValue(nextCell));
+                                break;
+                            case 10:
+                                fm.setCurso((String) getCellValue(nextCell));
+                                break;
+                            case 11:
+                                fm.setInstituicaoo((String) getCellValue(nextCell));
+                                break;
+                            case 12:
+                                String typeEnum = (String) getCellValue(nextCell);
+                                if (!typeEnum.isEmpty()) {
+                                    id.setNome(Language.valueOf(typeEnum.trim()));
+                                }
+
+                                break;
+                            case 13:
+                                String typeEnumNivel = (String) getCellValue(nextCell);
+                                if (!typeEnumNivel.isEmpty()) {
+                                    id.setNivel(Nivel.valueOf(typeEnumNivel.trim()));
+                                }
+
+                                break;
+                        }
+                    }
+
+                }
+
+                List<Formacao> listFm = new ArrayList<>();
+                listFm.add(fm);
+                f.setFormacoes(listFm);
+
+                List<Idioma> listId = new ArrayList<>();
+                listId.add(id);
+                f.setIdiomas(listId);
+
+                if (row > 0) {
+                    funcionariosExcel.add(f);
+                }
+
+            }
+            wb.close();
+            fl.close();
+//            for (Funcionario fc : funcionariosExcel) {
+//                System.out.println(fc.getNome());
+//            }
+            return funcionariosExcel;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    private Object getCellValue(Cell cell) {
+        Object o = "";
+        try {
+            switch (cell.getCellType()) {
+                case Cell.CELL_TYPE_STRING:
+                    o = cell.getStringCellValue();
+                    break;
+                case Cell.CELL_TYPE_BOOLEAN:
+                    o = cell.getBooleanCellValue();
+                    break;
+                case Cell.CELL_TYPE_NUMERIC:
+                    o = cell.getNumericCellValue();
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getMessage());
+        }
+        return o;
     }
 }
