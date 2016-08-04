@@ -8,12 +8,13 @@
 var app = angular.module("rhApp");
 
 app.constant("exportType", "export/exportFile"),
-app.constant("readExcel", "export/readExcel").factory("exportService", function ($http, exportType,readExcel) {
+app.constant("exportSingleReport", "export/exportSingleReport"),
+app.constant("readExcel", "export/readExcel").factory("exportService", function ($http, exportType,readExcel,exportSingleReport) {
 
     return{
-        exportType: function (type, columns) {
+        exportType: function (type) {
             var ajaxget = $http({
-                url: exportType + "/" + type + "/" + columns,
+                url: exportType + "/" + type,
                 method: 'GET',
                 async: true,
                 cache: false,
@@ -24,6 +25,16 @@ app.constant("readExcel", "export/readExcel").factory("exportService", function 
         readExcel: function () {
             var ajaxget = $http({
                 url: readExcel,
+                method: 'GET',
+                async: true,
+                cache: false,
+                headers: {'Accept': 'application/json', 'Pragma': 'no-cache'}
+            });
+           
+        },
+        exportSingleReport: function (id) {
+            var ajaxget = $http({
+                url: exportSingleReport+"/"+id,
                 method: 'GET',
                 async: true,
                 cache: false,

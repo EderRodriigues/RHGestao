@@ -36,6 +36,7 @@ public class CrudController {
 
     FuncionarioService funcionarioService;
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(CrudController.class);
+
     @Autowired
     @Qualifier(value = "funcionarioService")
     public void setFuncionarioService(FuncionarioService funcionarioService) {
@@ -45,12 +46,15 @@ public class CrudController {
     @RequestMapping(value = "save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<Funcionario> save(@RequestBody Funcionario funcionario) throws ParseException {
+        try {
             if (funcionario.getIdFuncionario() > 0) {
                 this.funcionarioService.update(funcionario);
             } else {
                 this.funcionarioService.save(funcionario);
             }
-        
+        } catch (NullPointerException ne) {
+            this.funcionarioService.save(funcionario);
+        }
 
         return new ResponseEntity<>(funcionario, HttpStatus.OK);
     }

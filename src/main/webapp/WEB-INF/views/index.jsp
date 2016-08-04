@@ -40,6 +40,10 @@
                             <li><a class="op" href="atualizarFuncionario">Atualizar</a></li>
                         </ul>
                     </li>
+                    <li class="dropdown" id="setor">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="index">Gestão de RH
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>

@@ -5,6 +5,7 @@
  */
 package br.sp.telesul.service;
 
+import br.sp.telesul.controller.CrudController;
 import br.sp.telesul.model.Certificacao;
 import br.sp.telesul.model.Formacao;
 import br.sp.telesul.model.Funcionario;
@@ -38,6 +39,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -53,6 +55,8 @@ public class ExportServiceImpl implements ExportService {
     @Qualifier(value = "funcionarioService")
     private FuncionarioService funcionarioService;
 
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(ExportServiceImpl.class);
+
     public FuncionarioService getFuncionarioService() {
         return funcionarioService;
     }
@@ -62,7 +66,7 @@ public class ExportServiceImpl implements ExportService {
     }
 
     @Override
-    public void buildExcelDocument(String type, List<String> columns, List<String> columnsFormacao, List<String> columnsIdiomas, List<String> columnsCertificacoes, HttpServletRequest request, HttpServletResponse response) {
+    public void buildExcelDocument(String type, String[] columns, String[] columnsFormacao, String[] columnsIdiomas, String[] columnsCertificacoes, HttpServletRequest request, HttpServletResponse response) {
         HSSFWorkbook workbook = new HSSFWorkbook();
         writeExcel("Funcionarios", columns, workbook);
         writeExcelFormacao("Formações", columnsFormacao, workbook);
@@ -72,18 +76,18 @@ public class ExportServiceImpl implements ExportService {
         downloadExcel(request, response, workbook);
     }
 
-    public void writeExcel(String templateHead, List<String> columns, HSSFWorkbook workbook) {
+    public void writeExcel(String templateHead, String[] columns, HSSFWorkbook workbook) {
         try {
             List<Funcionario> funcionarios = funcionarioService.search();
 
             HSSFSheet sheet = workbook.createSheet(templateHead);
 
             Row rowHeading = sheet.createRow(0);
-            for (int i = 0; i < columns.size(); i++) {
-                rowHeading.createCell(i).setCellValue(columns.get(i));
+            for (int i = 0; i < columns.length; i++) {
+                rowHeading.createCell(i).setCellValue(columns[i]);
             }
 
-            for (int i = 0; i < columns.size(); i++) {
+            for (int i = 0; i < columns.length; i++) {
                 CellStyle stylerowHeading = workbook.createCellStyle();
                 Font font = workbook.createFont();
                 font.setBold(true);
@@ -119,30 +123,51 @@ public class ExportServiceImpl implements ExportService {
                 Cell gestor = row.createCell(4);
                 gestor.setCellValue(f.getGestor());
 
+                try {
+                    Cell email = row.createCell(5);
+                    email.setCellValue(f.getEmail());
+                } catch (NullPointerException ne) {
+
+                }
+                try {
+                    Cell telefone = row.createCell(6);
+                    telefone.setCellValue(f.getTelefone());
+
+                } catch (NullPointerException e) {
+
+                }
+                try {
+                    Cell celular = row.createCell(7);
+                    celular.setCellValue(f.getCelular());
+                } catch (NullPointerException e) {
+
+                }
+
                 r++;
             }
 
-            for (int i = 0; i < columns.size(); i++) {
+            for (int i = 0; i < columns.length; i++) {
                 sheet.autoSizeColumn(i);
             }
 
         } catch (Exception e) {
+            logger.error("Error gerate Report: " + e);
             System.out.println("Error" + e);
         }
     }
 
-    public void writeExcelFormacao(String templateHead, List<String> columns, HSSFWorkbook workbook) {
+    public void writeExcelFormacao(String templateHead, String[] columns, HSSFWorkbook workbook) {
         try {
             List<Funcionario> funcionarios = funcionarioService.search();
 
             HSSFSheet sheet = workbook.createSheet(templateHead);
 
             Row rowHeading = sheet.createRow(0);
-            for (int i = 0; i < columns.size(); i++) {
-                rowHeading.createCell(i).setCellValue(columns.get(i));
+            for (int i = 0; i < columns.length; i++) {
+                rowHeading.createCell(i).setCellValue(columns[i]);
             }
             //Estilizar o Cabeçalho - Stylesheet the heading
-            for (int i = 0; i < columns.size(); i++) {
+            for (int i = 0; i < columns.length; i++) {
                 CellStyle stylerowHeading = workbook.createCellStyle();
                 Font font = workbook.createFont();
                 font.setBold(true);
@@ -183,7 +208,7 @@ public class ExportServiceImpl implements ExportService {
 
             }
 
-            for (int i = 0; i < columns.size(); i++) {
+            for (int i = 0; i < columns.length; i++) {
                 sheet.autoSizeColumn(i);
             }
 
@@ -192,18 +217,18 @@ public class ExportServiceImpl implements ExportService {
         }
     }
 
-    public void writeExcelCertificacoes(String templateHead, List<String> columns, HSSFWorkbook workbook) {
+    public void writeExcelCertificacoes(String templateHead, String[] columns, HSSFWorkbook workbook) {
         try {
             List<Funcionario> funcionarios = funcionarioService.search();
 
             HSSFSheet sheet = workbook.createSheet(templateHead);
 
             Row rowHeading = sheet.createRow(0);
-            for (int i = 0; i < columns.size(); i++) {
-                rowHeading.createCell(i).setCellValue(columns.get(i));
+            for (int i = 0; i < columns.length; i++) {
+                rowHeading.createCell(i).setCellValue(columns[i]);
             }
             //Estilizar o Cabeçalho - Stylesheet the heading
-            for (int i = 0; i < columns.size(); i++) {
+            for (int i = 0; i < columns.length; i++) {
                 CellStyle stylerowHeading = workbook.createCellStyle();
                 Font font = workbook.createFont();
                 font.setBold(true);
@@ -253,7 +278,7 @@ public class ExportServiceImpl implements ExportService {
 
             }
 
-            for (int i = 0; i < columns.size(); i++) {
+            for (int i = 0; i < columns.length; i++) {
                 sheet.autoSizeColumn(i);
             }
 //            String file = "C:/Users/ebranco.TELESULCORP/new.xls";
@@ -267,18 +292,18 @@ public class ExportServiceImpl implements ExportService {
         }
     }
 
-    public void writeExcelIdiomas(String templateHead, List<String> columns, HSSFWorkbook workbook) {
+    public void writeExcelIdiomas(String templateHead, String[] columns, HSSFWorkbook workbook) {
         try {
             List<Funcionario> funcionarios = funcionarioService.search();
 
             HSSFSheet sheet = workbook.createSheet(templateHead);
 
             Row rowHeading = sheet.createRow(0);
-            for (int i = 0; i < columns.size(); i++) {
-                rowHeading.createCell(i).setCellValue(columns.get(i));
+            for (int i = 0; i < columns.length; i++) {
+                rowHeading.createCell(i).setCellValue(columns[i]);
             }
             //Estilizar o Cabeçalho - Stylesheet the heading
-            for (int i = 0; i < columns.size(); i++) {
+            for (int i = 0; i < columns.length; i++) {
                 CellStyle stylerowHeading = workbook.createCellStyle();
                 Font font = workbook.createFont();
                 font.setBold(true);
@@ -311,7 +336,7 @@ public class ExportServiceImpl implements ExportService {
                                 r++;
                             }
                         } catch (NullPointerException ne) {
-                            System.out.println("Error "+ne);
+                            System.out.println("Error " + ne);
                             break;
                         }
 
@@ -321,7 +346,7 @@ public class ExportServiceImpl implements ExportService {
 
             }
 
-            for (int i = 0; i < columns.size(); i++) {
+            for (int i = 0; i < columns.length; i++) {
                 sheet.autoSizeColumn(i);
             }
 
@@ -475,11 +500,197 @@ public class ExportServiceImpl implements ExportService {
                 case Cell.CELL_TYPE_NUMERIC:
                     o = cell.getNumericCellValue();
                     break;
+                case Cell.CELL_TYPE_BLANK:
+                    o = "";
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getMessage());
         }
         return o;
+    }
+
+    @Override
+    public void singleReport(Long id, HttpServletRequest request, HttpServletResponse response) {
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        writeExcelSingle(id, workbook);
+        downloadExcel(request, response, workbook);
+    }
+
+    public void writeExcelSingle(Long id, HSSFWorkbook workbook) {
+        String[] columns = {"Nome", "Cargo", "Data de Admissao", "Área", "Gestor", "Email", "Telefone", "Celular"};
+        String[] colFormacao = {"Formação", "Curso", "Instituição", "Cópia de Certificação"};
+        String[] colIdioma = {"Idioma", "Nível"};
+        String[] colCertificacao = {"Certificadora", "Exame", "Código", "Data de Exame", "Data de Validade", "Cópia de Certificado"};
+        try {
+            Funcionario funcionario = this.funcionarioService.searchById(id);
+
+            HSSFSheet sheet = workbook.createSheet("Funcionário");
+
+            Row rowHeading = sheet.createRow(0);
+            for (int i = 0; i < columns.length; i++) {
+                rowHeading.createCell(i).setCellValue(columns[i]);
+            }
+            stylizeHeader(rowHeading, workbook, columns);
+
+            int r = 1;
+
+            Row row = sheet.createRow(r);
+
+            Cell Nome = row.createCell(0);
+            Nome.setCellValue(funcionario.getNome());
+            Cell cargo = row.createCell(1);
+            cargo.setCellValue(funcionario.getCargo());
+
+            Cell dtAdmissao = row.createCell(2);
+            dtAdmissao.setCellValue(funcionario.getDtAdmissao());
+
+            CellStyle styleDate = workbook.createCellStyle();
+            HSSFDataFormat dfAdmissao = workbook.createDataFormat();
+            styleDate.setDataFormat(dfAdmissao.getFormat("dd/mm/yyyy"));
+            dtAdmissao.setCellStyle(styleDate);
+
+            Cell area = row.createCell(3);
+            area.setCellValue(funcionario.getArea());
+
+            Cell gestor = row.createCell(4);
+            gestor.setCellValue(funcionario.getGestor());
+
+            try {
+                Cell email = row.createCell(5);
+                email.setCellValue(funcionario.getEmail());
+
+            } catch (NullPointerException ne) {
+
+            }
+            try {
+                Cell telefone = row.createCell(6);
+                telefone.setCellValue(funcionario.getTelefone());
+
+            } catch (NullPointerException ne) {
+
+            }
+            try {
+                Cell celular = row.createCell(7);
+                celular.setCellValue(funcionario.getCelular());
+            } catch (NullPointerException ne) {
+
+            }
+
+            int auxRow = 12;
+            for (Formacao form : funcionario.getFormacoes()) {
+                if (!form.getCurso().isEmpty() || !form.getNivel().isEmpty() || !form.getInstituicao().isEmpty()) {
+                    int headerFormacao = 11;
+                    Row rowHeadingForm = sheet.createRow(headerFormacao);
+                    for (int i = 0; i < colFormacao.length; i++) {
+                        rowHeadingForm.createCell(i).setCellValue(colFormacao[i]);
+                    }
+                    stylizeHeader(rowHeadingForm, workbook, colFormacao);
+                    int rowFormacao = 12;
+                    Row rowFormacaoDatas = sheet.createRow(rowFormacao);
+                    Cell formacao = rowFormacaoDatas.createCell(0);
+                    Cell curso = rowFormacaoDatas.createCell(1);
+                    Cell instituicao = rowFormacaoDatas.createCell(2);
+                    Cell copy = rowFormacaoDatas.createCell(3);
+                    for (Formacao f : funcionario.getFormacoes()) {
+                        formacao.setCellValue(f.getNivel());
+                        curso.setCellValue(f.getCurso());
+                        instituicao.setCellValue(f.getInstituicao());
+                        copy.setCellValue(f.getCopiaCertificado());
+                        rowFormacao++;
+                        auxRow = rowFormacao;
+                    }
+                    autoSizeColum(sheet, colFormacao);
+                }
+            }
+            for (Idioma i : funcionario.getIdiomas()) {
+                try {
+                    if (!i.getNome().toString().isEmpty() && !i.getNivel().toString().isEmpty()) {
+                        int headerIdiomas = auxRow + 9;
+                        Row rowHeadingIdioma = sheet.createRow(headerIdiomas);
+                        for (int j = 0; j < colIdioma.length; j++) {
+                            rowHeadingIdioma.createCell(j).setCellValue(colIdioma[j]);
+                        }
+                        stylizeHeader(rowHeadingIdioma, workbook, colIdioma);
+                        int rowIdioma = headerIdiomas + 1;
+                        Row rowIdiomasDatas = sheet.createRow(rowIdioma);
+                        Cell nivelIdm = rowIdiomasDatas.createCell(0);
+                        Cell language = rowIdiomasDatas.createCell(1);
+                        for (Idioma j : funcionario.getIdiomas()) {
+                            nivelIdm.setCellValue(j.getNivel().toString());
+                            language.setCellValue(j.getNome().toString());
+                            rowIdioma++;
+                            auxRow = rowIdioma;
+                        }
+                        autoSizeColum(sheet, colIdioma);
+                    }
+                } catch (NullPointerException ne) {
+                    logger.error("Idiomas" + ne);
+                    break;
+                }
+
+            }
+
+            if (funcionario.getCertificacoes().size() > 0) {
+                int headerCertificacao = auxRow + 9;
+                Row rowHeadingCert = sheet.createRow(headerCertificacao);
+                for (int j = 0; j < colCertificacao.length; j++) {
+                    rowHeadingCert.createCell(j).setCellValue(colCertificacao[j]);
+                }
+                stylizeHeader(rowHeadingCert, workbook, colCertificacao);
+                int rowCert = headerCertificacao + 1;
+                Row rowCertDatas = sheet.createRow(rowCert);
+                Cell certificadora = rowCertDatas.createCell(0);
+                Cell exame = rowCertDatas.createCell(1);
+                Cell codigo = rowCertDatas.createCell(2);
+                Cell dtExame = rowCertDatas.createCell(3);
+                dtExame.setCellStyle(styleDate);
+                Cell dtValidade = rowCertDatas.createCell(4);
+                dtValidade.setCellStyle(styleDate);
+                Cell copia = rowCertDatas.createCell(5);
+
+                for (Certificacao c : funcionario.getCertificacoes()) {
+                    certificadora.setCellValue(c.getEmpresa());
+                    exame.setCellValue(c.getNome());
+                    codigo.setCellValue(c.getCodigo());
+                    dtExame.setCellValue(c.getDtExame());
+                    dtValidade.setCellValue(c.getDtValidade());
+                    copia.setCellValue(c.getCopia());
+
+                }
+                autoSizeColum(sheet, colCertificacao);
+            }
+
+            //r++;
+        } catch (Exception e) {
+            logger.error("Error Writing Single Report: " + e);
+            System.out.println("rror Writing Single Report: " + e);
+        }
+    }
+
+    public void stylizeHeader(Row rowHeading, HSSFWorkbook workbook, String[] columns) {
+        for (int i = 0; i < columns.length; i++) {
+            CellStyle stylerowHeading = workbook.createCellStyle();
+            Font font = workbook.createFont();
+            font.setBold(true);
+            font.setFontName(HSSFFont.FONT_ARIAL);
+            font.setFontHeightInPoints((short) 11);
+            stylerowHeading.setFont(font);
+            stylerowHeading.setVerticalAlignment(CellStyle.ALIGN_CENTER);
+            stylerowHeading.setFillForegroundColor(HSSFColor.ROYAL_BLUE.index);
+            stylerowHeading.setFillPattern(CellStyle.SOLID_FOREGROUND);
+            rowHeading.getCell(i).setCellStyle(stylerowHeading);
+        }
+    }
+
+    public void autoSizeColum(HSSFSheet sheet, String[] columns) {
+        for (int i = 0; i < columns.length; i++) {
+            sheet.autoSizeColumn(i);
+        }
+    }
+
+    public String blank() {
+        return "";
     }
 }

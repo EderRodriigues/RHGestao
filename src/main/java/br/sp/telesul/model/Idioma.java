@@ -29,7 +29,7 @@ public class Idioma implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="idIdioma")
-    private int idIdioma;
+    private Long idIdioma;
     @Column(name="nome")
     @Enumerated(EnumType.STRING)
     private Language nome;
@@ -47,11 +47,11 @@ public class Idioma implements Serializable{
         this.nivel = nivel;
     }
 
-    public int getId() {
+    public Long getId() {
         return idIdioma;
     }
 
-    public void setId(int idIdioma) {
+    public void setId(Long idIdioma) {
         this.idIdioma = idIdioma;
     }
     

@@ -10,6 +10,7 @@ app.controller("CadastrarFuncionario", function ($scope, crudService, $uibModal,
     $scope.funcionario.formacoes = [];
     $scope.funcionario.idiomas = [];
     $scope.funcionario.certificacoes = [];
+    $scope.funcionario.telefone = "(9608)";
     $scope.newFormacoes;
     $scope.newCertificacoes;
     $scope.novoIdioma;
@@ -41,9 +42,9 @@ app.controller("CadastrarFuncionario", function ($scope, crudService, $uibModal,
     function validation(employee) {
         console.log(employee);
         var boolean = true;
-        if (employee.idFuncionario === null || employee.idFuncionario === undefined || employee.idFuncionario === "") {
-            boolean = false;
-        }
+//        if (employee.idFuncionario === null || employee.idFuncionario === undefined || employee.idFuncionario === "") {
+//            boolean = false;
+//        }
         if (employee.nome === null || employee.nome === undefined || employee.nome === "") {
             boolean = false;
         }
@@ -65,10 +66,10 @@ app.controller("CadastrarFuncionario", function ($scope, crudService, $uibModal,
 
     $scope.save = function () {
         console.log($scope.funcionario);
-        if ($scope.funcionario.idFuncionario === null || $scope.funcionario.idFuncionario === undefined) {
-            $scope.funcionario.idFuncionario = 0;
-            console.log($scope.funcionario);
-        }
+//        if ($scope.funcionario.idFuncionario === null || $scope.funcionario.idFuncionario === undefined) {
+//            $scope.funcionario.idFuncionario = 0;
+//            console.log($scope.funcionario);
+//        }
         if (validation($scope.funcionario)) {
             crudService.save($scope.funcionario);
             broadCastService.broadCastAlertSuccess("Salvo com Sucesso");

@@ -24,6 +24,7 @@
                             <th>Nome</th>
                             <th>Cargo</th>
                             <th>Área</th>                        
+                            <th>Relatórios Individuais</th>                        
                         </tr>
                     </thead>
                     <tbody>
@@ -38,6 +39,7 @@
                             </td>
                             <td>{{employee.cargo}}</td>
                             <td>{{employee.area}}</td>
+                            <td><button class="btn btn-info btn-sm" ng-click="singleReport(employee.idFuncionario)">Relatório</button></td>
                         </tr>
                     </tbody>
                 </table>

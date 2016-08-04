@@ -31,7 +31,7 @@ public class Certificacao implements Serializable {
     @Id
     @Column(name = "idCertificacao")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idCertificacao;
+    private Long idCertificacao;
     @Column
     private String codigo;
     @Column(name = "nome")
@@ -66,11 +66,11 @@ public class Certificacao implements Serializable {
         this.nome = nome;
     }
 
-    public int getIdCertificacao() {
+    public Long getIdCertificacao() {
         return idCertificacao;
     }
 
-    public void setIdCertificacao(int idCertificacao) {
+    public void setIdCertificacao(Long idCertificacao) {
         this.idCertificacao = idCertificacao;
     }
 

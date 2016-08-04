@@ -44,29 +44,15 @@ public class ExportController {
         this.funcionarioService = funcionarioService;
     }
 
-    @RequestMapping(value = "exportFile/{type}/{columns}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void exportFile(@PathVariable String type, @PathVariable List<String> columns, HttpServletRequest request, HttpServletResponse response) {
-        List<String> columnsFormacao = new ArrayList<>();
-        columnsFormacao.add("Nome");
-        columnsFormacao.add("Curso");
-        columnsFormacao.add("Instituicao");
-        columnsFormacao.add("Nível");
-        columnsFormacao.add("Cópia de Certificado");
-        List<String> columnsIdiomas = new ArrayList<>();
-        columnsIdiomas.add("Nome");
-        columnsIdiomas.add("Idioma");
-        columnsIdiomas.add("Nível");
-        List<String> columnsCertificacoes = new ArrayList<>();
-        columnsCertificacoes.add("Nome");
-        columnsCertificacoes.add("Código Exame");
-        columnsCertificacoes.add("Certificado");
-        columnsCertificacoes.add("Exame");
-
-        columnsCertificacoes.add("Data de Exame");
-        columnsCertificacoes.add("Data de Validade");
-        columnsCertificacoes.add("Cópia de Certificado");
+    @RequestMapping(value = "exportFile/{type}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void exportFile(@PathVariable String type, HttpServletRequest request, HttpServletResponse response) {
+        String[] columns = {"Nome", "Cargo", "Data de Admissao", "Área", "Gestor", "Email","Telefone","Celular"};
+        String[] columnsFormacao ={"Nome","Curso","Instituicao","Nível","Cópia de Certificado"};
+        String[] columnsIdiomas ={"Nome", "Idioma", "Nível"};
+        String[] columnsCertificacoes ={"Nome","Código Exame","Certificado","Exame","Data de Exame","Data de Validade","Cópia de Certificado"};
+    
         exs.buildExcelDocument(type, columns, columnsFormacao, columnsIdiomas, columnsCertificacoes, request, response);
-
+        
     }
 
     @RequestMapping(value = "readExcel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -76,5 +62,10 @@ public class ExportController {
         for (Funcionario f : funcionarios ) {
             funcionarioService.save(f);
         }
+    }
+    
+    @RequestMapping(value = "exportSingleReport/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody void exportSingleReport(@PathVariable Long id,HttpServletRequest request, HttpServletResponse response){
+        this.exs.singleReport(id,request,response);
     }
 }

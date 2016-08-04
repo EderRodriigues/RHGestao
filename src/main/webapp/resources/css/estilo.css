@@ -11,6 +11,7 @@ and open the template in the editor.
 body{
     background-image: url("resources/imgs/fabric-of-squares.png");
     background-repeat: repeat; 
+    font-size: 11px;
 }
 
 #banner{
@@ -115,4 +116,16 @@ nav{
 .panel-default > .panel-body{
     background: #ffffff
 }
+.border{
+    border: 1px solid #87CEEB;
+    border-radius: 2px;
+    padding: 15px;
 
+}
+#setor{
+    position: relative;
+    left: 650px;
+    color: black;
+    font-size: 18px;
+
+}

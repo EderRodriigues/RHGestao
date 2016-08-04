@@ -38,7 +38,7 @@ public class Funcionario implements Serializable {
     @Id
     @Column(name = "idFuncionario")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idFuncionario;
+    private Long idFuncionario;
     @Column(name = "nome")
     private String nome;
 
@@ -56,7 +56,7 @@ public class Funcionario implements Serializable {
 
     @Column(name = "area")
     private String area;
-
+    @Column
     private String gestor;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -65,12 +65,17 @@ public class Funcionario implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Idioma> idiomas;
     // Idioma class idioma e nivel
-
+    @Column
+    String email;
+    @Column
+    String telefone;
+    @Column
+    String celular;
     public Funcionario() {
 
     }
 
-    public Funcionario(int idFuncionario, String nome, String cargo, Date dtAdmissao, List<Formacao> formacoes, String area, String gestor, List<Certificacao> certificacoes, List<Idioma> idiomas) {
+    public Funcionario(Long idFuncionario, String nome, String cargo, Date dtAdmissao, List<Formacao> formacoes, String area, String gestor, List<Certificacao> certificacoes, List<Idioma> idiomas) {
         this.idFuncionario = idFuncionario;
         this.nome = nome;
         this.cargo = cargo;
@@ -98,11 +103,11 @@ public class Funcionario implements Serializable {
         this.formacoes = formacoes;
     }
 
-    public int getIdFuncionario() {
+    public Long getIdFuncionario() {
         return idFuncionario;
     }
 
-    public void setIdFuncionario(int idFuncionario) {
+    public void setIdFuncionario(Long idFuncionario) {
         this.idFuncionario = idFuncionario;
     }
 
@@ -154,6 +159,31 @@ public class Funcionario implements Serializable {
         this.idiomas = idiomas;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+    
+    
     @Override
     public String toString() {
         return "Funcionario{" + "idFuncionario=" + idFuncionario + ", nome=" + nome + ", cargo=" + cargo + ", dtAdmissao=" + dtAdmissao + ", formacoes=" + formacoes + ", area=" + area + ", gestor=" + gestor + ", certificacoes=" + certificacoes + ", idiomas=" + idiomas + '}';

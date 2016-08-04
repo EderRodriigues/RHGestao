@@ -22,6 +22,8 @@ public interface FuncionarioService {
     public void delete(Funcionario funcionario);
 
     public List<Funcionario> search();
+    
+    public Funcionario searchById(Long id);
 
     public FilterReturn searchPage(int pageNumber, int pageSize, String filter);
 }

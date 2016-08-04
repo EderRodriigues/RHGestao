@@ -27,7 +27,7 @@ public class Formacao implements Serializable {
     @Id
     @Column(name = "idFormacao")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idFormacao;
+    private Long idFormacao;
     @Column(name = "curso")
     private String curso;
     @Column(name = "instituicao")
@@ -41,11 +41,11 @@ public class Formacao implements Serializable {
 
     }
 
-    public int getIdFormacao() {
+    public Long getIdFormacao() {
         return idFormacao;
     }
 
-    public void setIdFormacao(int idFormacao) {
+    public void setIdFormacao(Long idFormacao) {
         this.idFormacao = idFormacao;
     }
 

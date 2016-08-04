@@ -43,7 +43,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
             tx = session.beginTransaction();
             session.persist(funcionario);
             tx.commit();
-            
+
             logger.info("Save Sucessfully funcionário", funcionario.getNome());
         } catch (Exception e) {
             if (tx != null) {
@@ -84,12 +84,12 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
             tx = session.beginTransaction();
             session.delete(funcionario);
             tx.commit();
-             logger.info("Funcionário Deleted Sucessfully", funcionario.getNome());
+            logger.info("Funcionário Deleted Sucessfully", funcionario.getNome());
         } catch (Exception e) {
             if (tx != null) {
                 tx.rollback();
             }
-            logger.error("Error in delete funcionário"+" ", e);
+            logger.error("Error in delete funcionário" + " ", e);
             System.out.println("erro" + e);
         } finally {
             session.close();
@@ -101,7 +101,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
     public List<Funcionario> search() {
         Session session = this.sessionFactory.openSession();
         try {
-            
+
             List<Funcionario> funcionarios = (List<Funcionario>) session.createQuery("from Funcionario").list();
             return funcionarios;
 
@@ -109,7 +109,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
             if (tx != null) {
                 tx.rollback();
             }
-            logger.error("Error in search funcionários(emplyees)"+" ", e);
+            logger.error("Error in search funcionários(emplyees)" + " ", e);
             System.out.println("erro" + e);
             return null;
         } finally {
@@ -117,20 +117,35 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
         }
 
     }
+    @Override
+    public Funcionario searchById(Long id) {
+        Session session = this.sessionFactory.openSession();
+        try {
+            Query query = session.createQuery("From Funcionario f Where idFuncionario = :id").setParameter("id", id);
+            Funcionario funcionario = (Funcionario) query.uniqueResult();
+            return funcionario;
+        } catch (Exception e) {
+            logger.error("Error in search Single funcionário(emplyees)" + " ", e);
+            System.out.println("erro" + e);
+            return null;
+        } finally {
+            session.close();
+        }
+    }
 
     @Override
     public FilterReturn searchPage(int pageNumber, int pageSize, String filter) {
         String countQ = "Select count (f.id) from Funcionario f";
         Session session = this.sessionFactory.getCurrentSession();
-        
+
         Query countQuery = session.createQuery(countQ);
         Long countResults = (Long) countQuery.uniqueResult();
-        
+
         int lastPageNumber = (int) ((countResults / pageSize) + 1);
-        
+
         FilterReturn filterReturn = new FilterReturn();
         filterReturn.setTotalEntities(countResults);
-        
+
         Query selectQuery = session.createQuery("From Funcionario f Where nome LIKE :filter");
         selectQuery.setParameter("filter", "%" + filter + "%");
         selectQuery.setFirstResult((pageNumber - 1) * pageSize);

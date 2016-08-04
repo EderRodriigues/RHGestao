@@ -158,13 +158,18 @@ app.controller("atualizarFuncionario", function ($scope, crudService, $uibModal,
 
     };
 
-    var columns = ["Nome", "Cargo", "Data de Admissao", "Área", "Gestor"];
+    var columns = ["Nome", "Cargo", "Data de Admissao", "Área", "Gestor", "Email","Telefone","Celular"];
 
     $scope.exportType = function (type) {
-        exportService.exportType(type, columns);
-        window.open("export/exportFile" + "/" + type + "/" + columns);
+        exportService.exportType(type);
+        window.open("export/exportFile" + "/" + type);
 
 
+    };
+    $scope.singleReport = function (idEmployee){
+      console.log(idEmployee);
+      exportService.exportSingleReport(idEmployee);
+      window.open("export/exportSingleReport" + "/" + idEmployee);
     };
     $scope.cancelRow = function (information) {
         if (information === "formacao") {

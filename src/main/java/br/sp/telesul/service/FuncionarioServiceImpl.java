@@ -52,7 +52,11 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     public List<Funcionario> search() {
         return this.funcionarioDAO.search();
     }
-
+    
+    @Override
+    public Funcionario searchById(Long id){
+        return this.funcionarioDAO.searchById(id);
+    };
     @Override
     @Transactional
     public FilterReturn searchPage(int pageNumber, int pageSize, String filter) {

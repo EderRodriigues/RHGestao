@@ -18,7 +18,8 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ExportService {
 
-    public void buildExcelDocument(String type, List<String> columns, List<String> columnsFormacao, List<String> columnsIdiomas, List<String> columnsCertificacoes, HttpServletRequest request, HttpServletResponse response);
+    public void buildExcelDocument(String type, String[] columns, String[] columnsFormacao, String[] columnsIdiomas, String[] columnsCertificacoes, HttpServletRequest request, HttpServletResponse response);
     public List<Funcionario> readExcelDocument();
+    public void singleReport(Long id,HttpServletRequest request, HttpServletResponse response);
 
 }

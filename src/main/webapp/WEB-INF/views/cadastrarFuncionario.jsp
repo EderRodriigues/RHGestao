@@ -38,12 +38,6 @@
                 background-image: url("resources/imgs/fabric-of-squares.png");
                 background-repeat: repeat;
             }
-            .border{
-                border: 1px solid #87CEEB;
-                border-radius: 2px;
-                padding: 15px;
-
-            }
         </style>
     </head>
     <body ng-controller="CadastrarFuncionario">
@@ -62,11 +56,15 @@
                             <li><a class="op" href="atualizarFuncionario">Atualizar</a></li>
                         </ul>
                     </li>
+                    <li class="dropdown" id="setor">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="index">Gestão de RH
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
 
-        <section class="container">
+        <section class="">
             <div ng-controller="alertController" id="allalerts">
                 <uib-alert class="alert-success" ng-show="alert.type === 'success'"  ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
                 <uib-alert class="alert-danger" ng-show="alert.type === 'danger'"  ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
@@ -109,6 +107,28 @@
                                 <div class="col-sm-3"> <input type="text" class="form-control" ng-model="funcionario.area"/></div>
                                 <div class="col-sm-3">
                                     <input type="text" class="form-control" ng-model="funcionario.gestor"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label>Email</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label>Telefone</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label>Celular</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <input type="email" class="form-control" ng-model="funcionario.email">
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" ng-model="funcionario.telefone">
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" ng-model="funcionario.celular">
                                 </div>
                             </div>
                             <br>

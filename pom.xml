@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.sp.telesul</groupId>
-    <artifactId>SupporteRecursosHumanos</artifactId>
+    <artifactId>CertificationsCtrl</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>SupporteRecursosHumanos</name>
+    <name>CertificationsCtrl</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
