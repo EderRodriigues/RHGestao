@@ -11,7 +11,7 @@ app.directive("search", function (crudService) {
         restrict: 'EA',
         templateUrl: 'searchTemplate',
         scope: '=',
-
+        
         link: function ($scope, element, attrs) {
 //            var ajax = crudService.search();
 //            ajax.success(function(data){

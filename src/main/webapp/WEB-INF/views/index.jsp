@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>RH Gestão</title>
+        <title>Gestão de RH</title>
         <link rel="shortcut icon" href="resources/imgs/Telesul.png" type="image/x-icon"/>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>  
         <script src="<c:url value="/resources/angularjs/external/angular.min.js"/>" type="text/javascript"></script>
@@ -28,12 +28,12 @@
         <nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index"><img id="banner" src="resources/imgs/Telesul.png"></a>
+                    <a class="navbar-brand" href="index"><img id="banner" src="resources/imgs/LogoTelesul.png"></a>
                 </div>
                 <ul class="nav navbar-nav">
 
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="index">Funcionários
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="index" id="title">Funcionários
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a class="op" href="cadastrarFuncionario">Cadastrar</a></li>

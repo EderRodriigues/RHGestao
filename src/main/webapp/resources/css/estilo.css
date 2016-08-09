@@ -19,7 +19,7 @@ body{
     top: -8px;
     right: 100px;
     height: 50px;
-    width: 120px;
+    width: 100px;
 }
 #loader{
     z-index: 1;
@@ -105,7 +105,7 @@ nav{
     background: -webkit-linear-gradient(top, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); 
     background: -moz-linear-gradient(top, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); 
     background: linear-gradient(top, #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); 
-    border: 1px solid #dddddd;
+
     border-bottom-color: transparent;
 } 
 .panel-default > .panel-heading{
@@ -128,4 +128,7 @@ nav{
     color: black;
     font-size: 18px;
 
+}
+#title{
+    font-size: 12px;
 }

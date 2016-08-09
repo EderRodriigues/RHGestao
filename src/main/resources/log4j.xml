@@ -10,7 +10,7 @@
         </layout>
     </appender>-->
     <appender name="springAppender" class="org.apache.log4j.RollingFileAppender"> 
-        <param name="file" value="${catalina.base}/logs/RHGestao.log" /> 
+        <param name="file" value="${catalina.base}/logs/certificationsctrl.log" /> 
         <param name="append" value="true" /> 
         <param name="Threshold" value="info" />
         <layout class="org.apache.log4j.PatternLayout">

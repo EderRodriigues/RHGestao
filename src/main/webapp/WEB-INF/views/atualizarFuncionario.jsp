@@ -9,7 +9,7 @@
 <html ng-app="rhApp">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>RH Gestão</title>
+        <title>Gestão de RH</title>
         <link rel="shortcut icon" href="resources/imgs/Telesul.png" type="image/x-icon"/>
         <script src="resources/jquery/jquery-2.1.4.js" type="text/javascript"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
@@ -45,18 +45,23 @@
                 /*left: 1150px;*/
                 margin-top: -35px;
             }
+            #backTop{
+                position: relative;
+                left: 500px;
+                border-radius: 90px;
+            }
         </style>
     </head>
     <body ng-controller="atualizarFuncionario">
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default" id="top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index"><img id="banner" src="resources/imgs/Telesul.png"></a>
+                    <a class="navbar-brand" href="index"><img id="banner" src="resources/imgs/LogoTelesul.png"></a>
                 </div>
                 <ul class="nav navbar-nav">
 
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="index">Funcionários
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="index" id="title">Funcionários
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a class="op" href="cadastrarFuncionario">Cadastrar</a></li>
@@ -301,12 +306,12 @@
                                                     <input type="text" class="form-control"  ng-model="certificacao.codigo" ng-show="selecionado.checked">
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <input type="text" class="form-control" readonly="true" ng-model="certificacao.nome" ng-hide="selecionado.checked">
-                                                    <input type="text" class="form-control"  ng-model="certificacao.nome" ng-show="selecionado.checked">
+                                                    <input type="text" class="form-control" readonly="true" ng-model="certificacao.empresa" ng-hide="selecionado.checked">
+                                                    <input type="text" class="form-control"  ng-model="certificacao.empresa" ng-show="selecionado.checked">
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <input type="text" class="form-control" readonly="true" ng-model="certificacao.empresa" ng-hide="selecionado.checked">
-                                                    <input type="text" class="form-control" ng-model="certificacao.empresa" ng-show="selecionado.checked">
+                                                    <input type="text" class="form-control" readonly="true" ng-model="certificacao.nome" ng-hide="selecionado.checked">
+                                                    <input type="text" class="form-control" ng-model="certificacao.nome" ng-show="selecionado.checked">
                                                 </div>
 
                                             </div>
@@ -406,6 +411,9 @@
                         <div class="dropdown" ng-hide="optionsBoolean[0] || optionsBoolean[1] || optionsBoolean[2] || optionsBoolean[3]">
                             <button class="btn btn-danger" ng-click="remove(selecionado)" ng-show="selecionado">Deletar</button>
                             <button class="btn btn-info" ng-click="exportType('xls')" type="button">Gerar Relatório</button>
+                        </div>
+                        <div ng-show="tamanhoPagina >10">
+                            <button class="btn btn-default" id="backTop" ng-click="backToTop('top')">Voltar para o Topo</button>
                         </div>
                     </form>
                 </div>

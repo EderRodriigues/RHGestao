@@ -9,7 +9,7 @@
 <html ng-app="rhApp">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>RH Gestão</title>
+        <title>Gestão de RH</title>
         <link rel="shortcut icon" href="resources/imgs/Telesul.png" type="image/x-icon"/>
         <script src="resources/jquery/jquery-2.1.4.js" type="text/javascript"></script>
 
@@ -44,12 +44,12 @@
         <nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index"><img id="banner" src="resources/imgs/Telesul.png"></a>
+                    <a class="navbar-brand" href="index"><img id="banner" src="resources/imgs/LogoTelesul.png"></a>
                 </div>
                 <ul class="nav navbar-nav">
 
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="index">Funcionários
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="index" id="title">Funcionários
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a class="op" href="cadastrarFuncionario">Cadastrar</a></li>
@@ -70,11 +70,11 @@
                 <uib-alert class="alert-danger" ng-show="alert.type === 'danger'"  ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
             </div>
             <ul class="nav nav-tabs">
-                <li id="tabs" ng-class="indexColor === $index ? 'active' : 'none'" ng-repeat="op in options"><a href="#" ng-click="ativarForm($index)" ng-click="applyClass(op, $index)">{{op}}</a></li>
+                <li id="tabs" ng-class="indexColor === $index ? 'active' : 'none'" ng-click="applyClass(op, $index)" ng-repeat="op in options"><a href="#" ng-click="ativarForm($index)">{{op}}</a></li>
             </ul>
             <div class="panel panel-default" ng-show="booleanForm">
 
-                <button class="" ng-click="readExcel()">Ler Excel</button>
+
                 <div class="panel-body">
                     <form class="form-group" ng-show="optionsBoolean[0]">
                         <h4>Dados Cadastrais</h4>

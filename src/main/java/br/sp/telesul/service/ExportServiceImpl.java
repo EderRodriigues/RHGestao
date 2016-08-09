@@ -93,6 +93,7 @@ public class ExportServiceImpl implements ExportService {
                 font.setBold(true);
                 font.setFontName(HSSFFont.FONT_ARIAL);
                 font.setFontHeightInPoints((short) 11);
+                font.setColor(HSSFColor.WHITE.index);
                 stylerowHeading.setFont(font);
                 stylerowHeading.setVerticalAlignment(CellStyle.ALIGN_CENTER);
                 stylerowHeading.setFillForegroundColor(HSSFColor.ROYAL_BLUE.index);
@@ -173,6 +174,7 @@ public class ExportServiceImpl implements ExportService {
                 font.setBold(true);
                 font.setFontName(HSSFFont.FONT_ARIAL);
                 font.setFontHeightInPoints((short) 11);
+                font.setColor(HSSFColor.WHITE.index);
                 stylerowHeading.setFont(font);
                 stylerowHeading.setVerticalAlignment(CellStyle.ALIGN_CENTER);
                 stylerowHeading.setFillForegroundColor(HSSFColor.ROYAL_BLUE.index);
@@ -189,16 +191,37 @@ public class ExportServiceImpl implements ExportService {
                         if (!fmc.getInstituicao().isEmpty() || !fmc.getCurso().isEmpty() || !fmc.getNivel().isEmpty()) {
                             Row row = sheet.createRow(r);
 
-                            Cell Nome = row.createCell(0);
-                            Nome.setCellValue(f.getNome());
-                            Cell curso = row.createCell(1);
-                            curso.setCellValue(fmc.getCurso());
-                            Cell instituicao = row.createCell(2);
-                            instituicao.setCellValue(fmc.getInstituicao());
-                            Cell nivel = row.createCell(3);
-                            nivel.setCellValue(fmc.getNivel());
-                            Cell copia = row.createCell(4);
-                            copia.setCellValue(fmc.getCopiaCertificado());
+                            try {
+                                Cell Nome = row.createCell(0);
+                                Nome.setCellValue(f.getNome());
+                            } catch (NullPointerException e) {
+
+                            }
+
+                            try {
+                                Cell curso = row.createCell(1);
+                                curso.setCellValue(fmc.getCurso());
+                            } catch (NullPointerException e) {
+
+                            }
+                            try {
+                                Cell instituicao = row.createCell(2);
+                                instituicao.setCellValue(fmc.getInstituicao());
+                            } catch (NullPointerException e) {
+
+                            }
+                            try {
+                                Cell nivel = row.createCell(3);
+                                nivel.setCellValue(fmc.getNivel());
+                            } catch (NullPointerException e) {
+
+                            }
+                            try {
+                                Cell copia = row.createCell(4);
+                                copia.setCellValue(fmc.getCopiaCertificado());
+                            } catch (NullPointerException e) {
+
+                            }
 
                             r++;
                         }
@@ -234,6 +257,7 @@ public class ExportServiceImpl implements ExportService {
                 font.setBold(true);
                 font.setFontName(HSSFFont.FONT_ARIAL);
                 font.setFontHeightInPoints((short) 11);
+                font.setColor(HSSFColor.WHITE.index);
                 stylerowHeading.setFont(font);
                 stylerowHeading.setVerticalAlignment(CellStyle.ALIGN_CENTER);
                 stylerowHeading.setFillForegroundColor(HSSFColor.ROYAL_BLUE.index);
@@ -249,27 +273,55 @@ public class ExportServiceImpl implements ExportService {
                     for (Certificacao ct : f.getCertificacoes()) {
                         Row row = sheet.createRow(r);
 
-                        Cell Nome = row.createCell(0);
-                        Nome.setCellValue(f.getNome());
-
-                        Cell cod = row.createCell(1);
-                        cod.setCellValue(ct.getCodigo());
-                        Cell nome = row.createCell(2);
-                        nome.setCellValue(ct.getNome());
-                        Cell empresa = row.createCell(3);
-                        empresa.setCellValue(ct.getEmpresa());
-                        Cell dtExame = row.createCell(4);
-                        dtExame.setCellValue(ct.getDtExame());
-                        Cell dtValidade = row.createCell(5);
-                        dtValidade.setCellValue(ct.getDtValidade());
-                        Cell copia = row.createCell(6);
-                        copia.setCellValue(ct.getCopia());
-
                         CellStyle styleDate = workbook.createCellStyle();
                         HSSFDataFormat dfExame = workbook.createDataFormat();
                         styleDate.setDataFormat(dfExame.getFormat("dd/mm/yyyy"));
-                        dtExame.setCellStyle(styleDate);
-                        dtValidade.setCellStyle(styleDate);
+                        try {
+                            Cell Nome = row.createCell(0);
+                            Nome.setCellValue(f.getNome());
+
+                        } catch (NullPointerException e) {
+
+                        }
+                        try {
+                            Cell cod = row.createCell(1);
+                            cod.setCellValue(ct.getCodigo());
+                        } catch (NullPointerException e) {
+
+                        }
+                        try {
+                            Cell nome = row.createCell(3);
+                            nome.setCellValue(ct.getNome());
+                        } catch (NullPointerException e) {
+
+                        }
+                        try {
+                            Cell empresa = row.createCell(2);
+                            empresa.setCellValue(ct.getEmpresa());
+                        } catch (NullPointerException e) {
+
+                        }
+                        try {
+                            Cell dtExame = row.createCell(4);
+                            dtExame.setCellValue(ct.getDtExame());
+                            dtExame.setCellStyle(styleDate);
+                        } catch (NullPointerException e) {
+
+                        }
+                        try {
+                            Cell dtValidade = row.createCell(5);
+                            dtValidade.setCellValue(ct.getDtValidade());
+                            dtValidade.setCellStyle(styleDate);
+                        } catch (NullPointerException e) {
+
+                        }
+                        try {
+
+                            Cell copia = row.createCell(6);
+                            copia.setCellValue(ct.getCopia());
+                        } catch (NullPointerException e) {
+
+                        }
 
                         r++;
                     }
@@ -309,6 +361,7 @@ public class ExportServiceImpl implements ExportService {
                 font.setBold(true);
                 font.setFontName(HSSFFont.FONT_ARIAL);
                 font.setFontHeightInPoints((short) 11);
+                font.setColor(HSSFColor.WHITE.index);
                 stylerowHeading.setFont(font);
                 stylerowHeading.setVerticalAlignment(CellStyle.ALIGN_CENTER);
                 stylerowHeading.setFillForegroundColor(HSSFColor.ROYAL_BLUE.index);
@@ -385,15 +438,16 @@ public class ExportServiceImpl implements ExportService {
     public List<Funcionario> readExcelDocument() {
         try {
             List<Funcionario> funcionariosExcel = new ArrayList<>();
-            FileInputStream fl = new FileInputStream(new File("C:\\Matriz1.xlsx"));
-            Workbook wb = new XSSFWorkbook(fl);
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+//            FileInputStream fl = new FileInputStream(new File("C:\\Matriz1.xlsx"));
+            Workbook wb = new XSSFWorkbook(classLoader.getResourceAsStream("Matriz1.xlsx"));
             Sheet firstSheet = wb.getSheetAt(0);
             Iterator<Row> iterator = firstSheet.iterator();
 
             while (iterator.hasNext()) {
                 Row nextRow = iterator.next();
                 int row = nextRow.getRowNum();
-                System.out.println("Row start" + row);
+//                System.out.println("Row start" + row);
                 Iterator<Cell> cellIterator = nextRow.cellIterator();
                 Funcionario f = new Funcionario();
                 Formacao fm = new Formacao();
@@ -403,8 +457,8 @@ public class ExportServiceImpl implements ExportService {
                     Cell nextCell = cellIterator.next();
                     int columnIndex = nextCell.getColumnIndex();
                     column = columnIndex;
-                    System.out.println("Valor" + getCellValue(nextCell));
-                    System.out.println("Index: " + columnIndex);
+//                    System.out.println("Valor" + getCellValue(nextCell));
+//                    System.out.println("Index: " + columnIndex);
                     if (row > 0) {
                         switch (columnIndex) {
                             case 1:
@@ -475,7 +529,7 @@ public class ExportServiceImpl implements ExportService {
 
             }
             wb.close();
-            fl.close();
+//            fl.close();
 //            for (Funcionario fc : funcionariosExcel) {
 //                System.out.println(fc.getNome());
 //            }
@@ -594,10 +648,27 @@ public class ExportServiceImpl implements ExportService {
                     Cell instituicao = rowFormacaoDatas.createCell(2);
                     Cell copy = rowFormacaoDatas.createCell(3);
                     for (Formacao f : funcionario.getFormacoes()) {
-                        formacao.setCellValue(f.getNivel());
-                        curso.setCellValue(f.getCurso());
-                        instituicao.setCellValue(f.getInstituicao());
-                        copy.setCellValue(f.getCopiaCertificado());
+                        try {
+                            formacao.setCellValue(f.getNivel());
+                        } catch (NullPointerException e) {
+
+                        }
+                        try {
+                            curso.setCellValue(f.getCurso());
+                        } catch (NullPointerException e) {
+
+                        }
+                        try {
+                            instituicao.setCellValue(f.getInstituicao());
+                        } catch (NullPointerException e) {
+
+                        }
+                        try {
+                            copy.setCellValue(f.getCopiaCertificado());
+                        } catch (NullPointerException e) {
+
+                        }
+
                         rowFormacao++;
                         auxRow = rowFormacao;
                     }
@@ -640,24 +711,49 @@ public class ExportServiceImpl implements ExportService {
                 }
                 stylizeHeader(rowHeadingCert, workbook, colCertificacao);
                 int rowCert = headerCertificacao + 1;
-                Row rowCertDatas = sheet.createRow(rowCert);
-                Cell certificadora = rowCertDatas.createCell(0);
-                Cell exame = rowCertDatas.createCell(1);
-                Cell codigo = rowCertDatas.createCell(2);
-                Cell dtExame = rowCertDatas.createCell(3);
-                dtExame.setCellStyle(styleDate);
-                Cell dtValidade = rowCertDatas.createCell(4);
-                dtValidade.setCellStyle(styleDate);
-                Cell copia = rowCertDatas.createCell(5);
 
                 for (Certificacao c : funcionario.getCertificacoes()) {
-                    certificadora.setCellValue(c.getEmpresa());
-                    exame.setCellValue(c.getNome());
-                    codigo.setCellValue(c.getCodigo());
-                    dtExame.setCellValue(c.getDtExame());
-                    dtValidade.setCellValue(c.getDtValidade());
-                    copia.setCellValue(c.getCopia());
+                    Row rowCertDatas = sheet.createRow(rowCert);
+                    Cell certificadora = rowCertDatas.createCell(0);
+                    Cell exame = rowCertDatas.createCell(1);
+                    Cell codigo = rowCertDatas.createCell(2);
+                    Cell dtExame = rowCertDatas.createCell(3);
+                    dtExame.setCellStyle(styleDate);
+                    Cell dtValidade = rowCertDatas.createCell(4);
+                    dtValidade.setCellStyle(styleDate);
+                    Cell copia = rowCertDatas.createCell(5);
+                    try {
+                        certificadora.setCellValue(c.getEmpresa());
+                    } catch (NullPointerException e) {
 
+                    }
+                    try {
+                        exame.setCellValue(c.getNome());
+                    } catch (NullPointerException e) {
+
+                    }
+                    try {
+                        codigo.setCellValue(c.getCodigo());
+                    } catch (NullPointerException e) {
+
+                    }
+                    try {
+                        dtExame.setCellValue(c.getDtExame());
+                    } catch (NullPointerException e) {
+
+                    }
+                    try {
+                        dtValidade.setCellValue(c.getDtValidade());
+                    } catch (NullPointerException e) {
+
+                    }
+                    try {
+                        copia.setCellValue(c.getCopia());
+                    } catch (NullPointerException e) {
+
+                    }
+
+                    rowCert++;
                 }
                 autoSizeColum(sheet, colCertificacao);
             }
@@ -676,6 +772,7 @@ public class ExportServiceImpl implements ExportService {
             font.setBold(true);
             font.setFontName(HSSFFont.FONT_ARIAL);
             font.setFontHeightInPoints((short) 11);
+            font.setColor(HSSFColor.WHITE.index);
             stylerowHeading.setFont(font);
             stylerowHeading.setVerticalAlignment(CellStyle.ALIGN_CENTER);
             stylerowHeading.setFillForegroundColor(HSSFColor.ROYAL_BLUE.index);

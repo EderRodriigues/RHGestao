@@ -13,7 +13,7 @@
             </div>
             <div class="col-xs-4">
                 <label for="search">Itens Por Página:</label>
-                <input type="number" min="1" max="15" class="form-control" ng-model="tamanhoPagina">
+                <input type="number" min="1" max="20" class="form-control" ng-model="tamanhoPagina">
             </div>
            
             <div class="col-xs-12 table-responsive">

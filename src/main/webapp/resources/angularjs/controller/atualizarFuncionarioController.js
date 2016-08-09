@@ -6,7 +6,7 @@
 
 
 var app = angular.module("rhApp");
-app.controller("atualizarFuncionario", function ($scope, crudService, $uibModal, broadCastService, exportService) {
+app.controller("atualizarFuncionario", function ($scope, crudService, $uibModal, broadCastService, exportService,$location,$anchorScroll) {
     $scope.funcionarios;
     $scope.selecionado;
     $scope.languages = ["Português", "Inglês", "Espanhol", "Frânces", "Alemão", "Italiano", "Grego", "Russo", "Indi", "Japônes", "Chinês", "Mandarim", "Hebraíco"];
@@ -179,5 +179,11 @@ app.controller("atualizarFuncionario", function ($scope, crudService, $uibModal,
         } else if (information === "idiomas") {
             $scope.novoIdioma = [];
         }
+    };
+    
+    $scope.backToTop = function (id){
+        console.log(id);
+         $location.hash(id);
+          $anchorScroll();
     };
 });
